@@ -56,7 +56,7 @@ export default function WebDevPage() {
 
             <div style={{ background: 'var(--ink3)', border: '1px solid var(--cobalt)', padding: '2.5rem', marginBottom: '2rem' }}>
               <div className="label-tag">STARTING FROM</div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', fontWeight: 300, color: 'var(--white)', lineHeight: 1, marginTop: '1rem' }}>₹25,000</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', fontWeight: 300, color: 'var(--white)', lineHeight: 1, marginTop: '1rem' }}>₹38,000</div>
               <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: 'var(--fog)', marginTop: '0.4rem' }}>one time</div>
             </div>
 

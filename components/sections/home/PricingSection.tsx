@@ -17,7 +17,7 @@ const plans: Plan[] = [
   {
     id: 'presence',
     name: 'PRESENCE',
-    price: '₹25,000',
+    price: '₹38,000',
     desc: 'Professional website that establishes your digital presence',
     featured: false,
     features: [

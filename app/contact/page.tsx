@@ -44,12 +44,13 @@ export default function ContactPage() {
               onBlur={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--line)')}
             >
               <option value="" disabled selected>Service Needed</option>
-              <option value="web">Web Development</option>
-              <option value="ai">AI Automation</option>
-              <option value="seo">SEO & GBP</option>
-              <option value="brand">Brand Strategy</option>
-              <option value="retainer">Monthly Retainer</option>
-              <option value="full">Full Package</option>
+              <option value="web">Digital Ecosystem Architecture</option>
+              <option value="ai">Autonomous Operations</option>
+              <option value="seo">Algorithmic Positioning</option>
+              <option value="brand">Brand Brutalism</option>
+              <option value="telemetry">Conversion Telemetry</option>
+              <option value="iteration">Continuous Iteration</option>
+              <option value="full">Full Ecosystem Scale</option>
               <option value="unsure">Not sure yet</option>
             </select>
 
@@ -58,10 +59,10 @@ export default function ContactPage() {
               onBlur={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--line)')}
             >
               <option value="" disabled selected>Budget</option>
-              <option value="25">Under ₹25,000</option>
-              <option value="50">₹25k–₹50k</option>
-              <option value="120">₹50k–₹1,20,000</option>
-              <option value="max">₹1,20,000+</option>
+              <option value="38">Under ₹38,000</option>
+              <option value="75">₹38k–₹75k</option>
+              <option value="150">₹75k–₹1,50,000</option>
+              <option value="max">₹1,50,000+</option>
               <option value="discuss">Let&apos;s discuss</option>
             </select>
 

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 const services = [
-  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', desc: 'Templates bleed revenue. We abandon generic themes to engineer bespoke Next.js web applications from absolute zero. Built for millisecond load times and relentless conversion.', href: '/services/web-development', from: '₹25,000' },
+  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', desc: 'Templates bleed revenue. We abandon generic themes to engineer bespoke Next.js web applications from absolute zero. Built for millisecond load times and relentless conversion.', href: '/services/web-development', from: '₹38,000' },
   { num: '02', title: 'ALGORITHMIC POSITIONING',   tag: 'Technical SEO · JSON-LD',     desc: 'Being on page two is mathematically identical to not existing. We dominate search algorithms through technical precision, semantic markup, and aggressive local authority.', href: '/services/seo-gbp', from: '₹8,000/month' },
   { num: '03', title: 'AUTONOMOUS OPERATIONS',       tag: 'LLMs · n8n · WhatsApp API',      desc: 'Human response times kill deals. We build digital systems that work while you sleep, capturing leads and closing sales 24/7.', href: '/services/ai-automation', from: '₹20,000 + ₹3,000/mo' },
   { num: '04', title: 'BRAND BRUTALISM',  tag: 'Creative Direction · UX Copy',  desc: 'Polite brands get ignored. We engineer visual and verbal identities that cut through the noise, positioning you as the undisputed authority.', href: '/services/brand-strategy', from: '₹15,000' },
