@@ -167,7 +167,7 @@ export default function WorkPreview() {
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '14px')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '8px')}
             >
-              VISIT NIXTUDIO.IN →
+              VIEW LIVE PROJECT →
             </a>
           </div>
 
@@ -218,7 +218,7 @@ export default function WorkPreview() {
       >
         {[
           { title: 'Holy Family Dental',  tag: 'DENTAL CLINIC · KOTTAYAM' },
-          { title: 'Studio Anagram',      tag: 'CREATIVE STUDIO · KOCHI' },
+          { title: 'Honeys Bridal Studio', tag: 'BRIDAL STUDIO · KERALA' },
         ].map((p) => (
           <div
             key={p.title}
@@ -245,7 +245,7 @@ export default function WorkPreview() {
                 }}
               >
                 <img
-                  src={p.title === 'Holy Family Dental' ? '/work/holy-family.png' : '/work/anagram.png'}
+                  src={p.title === 'Holy Family Dental' ? '/work/holy-family.png' : '/work/honeys.png'}
                   alt={p.title}
                   style={{
                     width: '100%',
@@ -271,19 +271,39 @@ export default function WorkPreview() {
                 >
                   {p.title}
                 </h3>
-                <span
-                  style={{
-                    border: '1px solid var(--dim)',
-                    color: 'var(--dim)',
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.55rem',
-                    letterSpacing: '0.2em',
-                    padding: '0.2rem 0.7rem',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  COMING SOON
-                </span>
+                {p.title === 'Holy Family Dental' || p.title === 'Honeys Bridal Studio' ? (
+                  <a
+                    href={p.title === 'Holy Family Dental' ? 'https://holy-family-dental-clinic.vercel.app/' : 'https://honeyss-teal.vercel.app/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      border: '1px solid var(--cobalt2)',
+                      color: 'var(--cobalt2)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.55rem',
+                      letterSpacing: '0.2em',
+                      padding: '0.2rem 0.7rem',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    VIEW LIVE PROJECT →
+                  </a>
+                ) : (
+                  <span
+                    style={{
+                      border: '1px solid var(--dim)',
+                      color: 'var(--dim)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.55rem',
+                      letterSpacing: '0.2em',
+                      padding: '0.2rem 0.7rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    COMING SOON
+                  </span>
+                )}
               </div>
             </div>
           </div>
