@@ -8,7 +8,7 @@ interface Plan {
   id: string
   name: string
   price: string
-  sub: string
+  desc: string
   featured: boolean
   features: Feature[]
 }
@@ -18,52 +18,54 @@ const plans: Plan[] = [
     id: 'presence',
     name: 'PRESENCE',
     price: '₹25,000',
-    sub: 'one time',
+    desc: 'Professional website that establishes your digital presence',
     featured: false,
     features: [
-      { text: 'Custom Next.js website',    included: true },
-      { text: 'Mobile-first design',       included: true },
-      { text: '5 pages',                   included: true },
-      { text: 'Basic SEO setup',           included: true },
-      { text: 'Vercel deployment',         included: true },
-      { text: '30 days support',           included: true },
-      { text: 'AI automation',             included: false },
-      { text: 'GBP management',            included: false },
-      { text: 'Monthly retainer',          included: false },
+      { text: 'Custom Next.js website (up to 5 pages)', included: true },
+      { text: 'Mobile-first responsive design', included: true },
+      { text: 'Basic SEO setup', included: true },
+      { text: 'Google Analytics integration', included: true },
+      { text: 'Contact form setup', included: true },
+      { text: '1 month post-launch support', included: true },
+      { text: 'Custom animations', included: false },
+      { text: 'Advanced SEO features', included: false },
+      { text: 'Content creation', included: false },
     ],
   },
   {
     id: 'signal',
     name: 'SIGNAL',
-    price: '₹45,000',
-    sub: 'one time',
+    price: '₹55,000',
+    desc: 'Complete digital system with SEO and automation',
     featured: true,
     features: [
-      { text: 'Everything in Presence',       included: true },
-      { text: 'Up to 10 pages',               included: true },
-      { text: 'Google Business Profile',      included: true },
-      { text: 'Google Search Console',        included: true },
-      { text: 'Full SEO infrastructure',      included: true },
-      { text: 'Schema markup',                included: true },
-      { text: 'Analytics setup',              included: true },
-      { text: '60 days support',              included: true },
-      { text: 'AI automation',                included: false },
+      { text: 'Custom Next.js website (unlimited pages)', included: true },
+      { text: 'Advanced SEO & schema markup', included: true },
+      { text: 'Google Business Profile optimization', included: true },
+      { text: 'WhatsApp AI agent setup', included: true },
+      { text: 'Custom animations & interactions', included: true },
+      { text: '3 months post-launch support', included: true },
+      { text: 'Content strategy & copywriting', included: true },
+      { text: 'Performance optimization', included: true },
+      { text: 'Monthly reporting for 3 months', included: true },
     ],
   },
   {
     id: 'orbit',
     name: 'ORBIT',
-    price: '₹8,000',
-    sub: 'per month',
+    price: '₹1,20,000',
+    desc: 'Premium digital ecosystem with ongoing management',
     featured: false,
     features: [
-      { text: 'GBP management (8 posts)',     included: true },
-      { text: 'Review monitoring + responses',included: true },
-      { text: 'Monthly SEO report',           included: true },
-      { text: 'Content updates',              included: true },
-      { text: 'Competitor tracking',          included: true },
-      { text: 'Priority support (4hr)',        included: true },
-      { text: 'Included w/ web package',      included: false },
+      { text: 'Everything in SIGNAL', included: true },
+      { text: '6 months monthly retainer included', included: true },
+      { text: 'Advanced automation workflows', included: true },
+      { text: 'Custom brand identity development', included: true },
+      { text: 'Professional photography coordination', included: true },
+      { text: 'Video content creation', included: true },
+      { text: 'Social media management', included: true },
+      { text: 'Paid advertising strategy', included: true },
+      { text: 'Conversion rate optimization', included: true },
     ],
   },
 ]
@@ -146,12 +148,14 @@ export default function PricingSection() {
             <div
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '0.82rem',
+                fontSize: '0.9rem',
                 color: 'var(--fog)',
-                marginTop: '0.4rem',
+                marginTop: '1rem',
+                lineHeight: 1.6,
+                minHeight: '45px',
               }}
             >
-              {plan.sub}
+              {plan.desc}
             </div>
 
             <hr style={{ border: 'none', borderTop: '1px solid var(--line)', margin: '2rem 0' }} />
