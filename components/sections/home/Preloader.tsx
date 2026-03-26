@@ -20,16 +20,16 @@ export default function Preloader() {
   useEffect(() => {
     if (!bootingComplete) return
 
-    // Small pause after decryption finishes for eye-rest
+    // Tighter pause after decryption finishes
     const slideTimeout = setTimeout(() => {
       setCurtainActive(true)
-    }, 600)
+    }, 300)
 
     // Remove from DOM after animation completes
     const removeTimeout = setTimeout(() => {
       setVisible(false)
       if (typeof window !== 'undefined') sessionStorage.setItem('revolq_v', '1')
-    }, 1700)
+    }, 1400)
 
     return () => {
       clearTimeout(slideTimeout)
@@ -71,8 +71,8 @@ export default function Preloader() {
         >
           <DecryptedText 
             text="REVOLQ" 
-            speed={50} 
-            maxIterations={15}
+            speed={30} 
+            maxIterations={8}
             onComplete={() => setBootingComplete(true)}
           />
         </h1>
@@ -97,8 +97,8 @@ export default function Preloader() {
         >
           <DecryptedText 
             text="DIGITAL AGENCY — KERALA — INDIA" 
-            speed={30} 
-            maxIterations={20}
+            speed={20} 
+            maxIterations={10}
           />
         </span>
       </div>
@@ -110,8 +110,8 @@ export default function Preloader() {
           background: 'var(--cobalt)',
           width: '6rem',
           transformOrigin: 'center',
-          animation: 'drawIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-          animationDelay: '0.8s',
+          animation: 'drawIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          animationDelay: '0.3s',
           opacity: 0,
         }}
       />
