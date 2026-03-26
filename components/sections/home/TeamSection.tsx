@@ -3,13 +3,13 @@ const team = [
     name: 'EATHEN BABY',
     role: 'CO-FOUNDER',
     overlay: 'FOUNDER',
-    bg: 'linear-gradient(135deg, #080808 0%, #141428 100%)',
+    img: '/team/eathen.png',
   },
   {
     name: 'AJMAL MULLAPATI',
     role: 'CO-FOUNDER',
     overlay: 'FOUNDER',
-    bg: 'linear-gradient(135deg, #050520 0%, #0a0a40 100%)',
+    img: '/team/ajmal.png',
   },
 ]
 
@@ -54,28 +54,26 @@ export default function TeamSection() {
             {/* Image placeholder */}
             <div style={{ height: '280px', position: 'relative', overflow: 'hidden', background: 'var(--ink4)' }}>
               <div
-                className="team-img"
+                className="team-img-wrapper"
                 style={{
                   width: '100%',
                   height: '100%',
-                  background: p.bg,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  background: '#000',
                 }}
               >
-                <span
+                <img
+                  src={p.img}
+                  alt={p.name}
                   style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '4rem',
-                    fontWeight: 300,
-                    color: 'rgba(26,26,255,0.15)',
-                    letterSpacing: '0.05em',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: 'grayscale(1) brightness(0.8) contrast(1.1)',
+                    transition: 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease',
                   }}
-                >
-                  {p.name.split(' ')[0][0]}
-                  {p.name.split(' ').slice(-1)[0][0]}
-                </span>
+                  className="profile-img"
+                />
               </div>
               {/* Role overlay */}
               <span
@@ -131,6 +129,10 @@ export default function TeamSection() {
       </div>
 
       <style>{`
+        .team-card:hover .profile-img {
+          transform: scale(1.05);
+          filter: grayscale(0.2) brightness(1.1) contrast(1.1);
+        }
         @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr !important; } .team-section { padding: 6rem 1.5rem !important; } }
       `}</style>
     </section>
