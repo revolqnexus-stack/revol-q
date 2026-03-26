@@ -273,7 +273,7 @@ export default function WorkPreview() {
                 </h3>
                 {p.title === 'Holy Family Dental' || p.title === 'Honeys Bridal Studio' ? (
                   <a
-                    href={p.title === 'Holy Family Dental' ? 'https://holy-family-dental-clinic.vercel.app/' : 'https://honeyss-teal.vercel.app/'}
+                    href={p.title === 'Holy Family Dental' ? 'https://holy-family-dental-clinic.vercel.app/' : 'https://honeysbridal.vercel.app/'}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
