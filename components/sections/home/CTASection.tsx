@@ -96,9 +96,10 @@ export default function CTASection() {
           variant="bold"
           onClick={() => router.push('/contact')}
           textClassName="text-[0.72rem] tracking-[0.18em] font-medium"
-          borderRadius={0}
-          borderWidth={0.1}
-          style={{ padding: '0.2rem 1.5rem' }}
+          borderRadius={100}
+          borderWidth={0.15}
+          distortionScale={-280}
+          style={{ padding: '0.2rem 1.8rem' }}
         >
           START A PROJECT
         </GlassButton>
@@ -107,9 +108,10 @@ export default function CTASection() {
           variant="subtle"
           onClick={() => window.open('https://wa.me/917995617374', '_blank', 'noopener,noreferrer')}
           textClassName="text-[0.72rem] tracking-[0.18em] font-medium text-white/80"
-          borderRadius={0}
-          borderWidth={0.05}
-          style={{ padding: '0.2rem 1.5rem' }}
+          borderRadius={100}
+          borderWidth={0.1}
+          distortionScale={-140}
+          style={{ padding: '0.2rem 1.8rem' }}
         >
           WHATSAPP US
         </GlassButton>

@@ -178,9 +178,10 @@ export default function PricingSection() {
               onClick={() => router.push('/contact')}
               className="w-full mt-8"
               textClassName={plan.featured ? "text-[0.65rem] tracking-[0.2em] font-medium" : "text-[0.65rem] tracking-[0.2em] font-medium text-white/70"}
-              borderRadius={0}
-              borderWidth={plan.featured ? 0.1 : 0.05}
-              style={{ padding: '0.9rem 1.5rem', width: '100%', marginTop: '2rem' }}
+              borderRadius={100}
+              borderWidth={plan.featured ? 0.15 : 0.1}
+              distortionScale={plan.featured ? -260 : -120}
+              style={{ padding: '0.8rem 1.5rem', width: '100%', marginTop: '2rem' }}
             >
               GET STARTED
             </GlassButton>
@@ -223,8 +224,9 @@ export default function PricingSection() {
             variant="bold"
             onClick={() => router.push('/contact')}
             textClassName="text-[0.62rem] tracking-[0.18em] font-medium"
-            borderRadius={0}
-            borderWidth={0.1}
+            borderRadius={100}
+            borderWidth={0.15}
+            distortionScale={-300}
             style={{ padding: '0.8rem 1.8rem', whiteSpace: 'nowrap' }}
           >
             GET STARTED →

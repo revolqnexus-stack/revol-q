@@ -131,8 +131,9 @@ export default function Hero() {
               style={{ animationDelay: '0.6s' }}
               onClick={() => router.push('/contact')}
               textClassName="text-[0.62rem] tracking-[0.2em] font-medium"
-              borderRadius={0}
-              borderWidth={0.1}
+              borderRadius={100}
+              borderWidth={0.15}
+              distortionScale={-300}
             >
               START A PROJECT →
             </GlassButton>
@@ -143,8 +144,9 @@ export default function Hero() {
               style={{ animationDelay: '0.7s' }}
               onClick={() => router.push('/work')}
               textClassName="text-[0.62rem] tracking-[0.2em] font-medium text-white/70"
-              borderRadius={0}
-              borderWidth={0.05}
+              borderRadius={100}
+              borderWidth={0.1}
+              distortionScale={-120}
             >
               VIEW OUR WORK
             </GlassButton>

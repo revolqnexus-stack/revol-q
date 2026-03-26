@@ -103,9 +103,10 @@ export default function Nav() {
             onClick={() => router.push('/contact')}
             className="nav-cta"
             textClassName="text-[0.58rem] tracking-[0.2em] font-medium text-white/80"
-            borderRadius={0}
-            borderWidth={0.05}
-            backgroundOpacity={0.08}
+            borderRadius={100}
+            borderWidth={0.08}
+            backgroundOpacity={0.12}
+            distortionScale={-100}
           >
             LET&apos;S TALK
           </GlassButton>
