@@ -11,7 +11,7 @@ const team = [
     role: 'CO-FOUNDER',
     overlay: 'FOUNDER',
     img: '/team/ajmal.png',
-    position: '20% 15%', // Adjusted to show face from the selfie
+    position: 'center 5%', // Perfected for the new full-body leaning pose
   },
 ]
 
