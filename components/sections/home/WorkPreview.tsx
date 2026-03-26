@@ -55,28 +55,26 @@ export default function WorkPreview() {
         >
           {/* Placeholder gradient image */}
           <div
-            className="work-card-img"
+            className="work-card-img-container"
             style={{
               width: '100%',
               height: '100%',
-              background: 'linear-gradient(135deg, #0a0a1a 0%, #0d0d30 40%, #050520 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              overflow: 'hidden',
+              background: '#000',
             }}
           >
-            <span
+            <img
+              src="/work/nixtudio.png"
+              alt="NIXTUDIO Mockup"
               style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(4rem, 12vw, 12rem)',
-                fontWeight: 300,
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.07)',
-                letterSpacing: '0.15em',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'grayscale(1) brightness(0.6)',
+                transition: 'transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), filter 0.8s ease',
               }}
-            >
-              NIXTUDIO
-            </span>
+              className="project-img"
+            />
           </div>
 
           {/* Badge */}
@@ -149,8 +147,10 @@ export default function WorkPreview() {
               Redefining the digital presence for Kerala&apos;s premier bridal studio.
               Complete web, SEO, and AI automation system built from the ground up.
             </p>
-            <Link
-              href="/work/nixtudio"
+            <a
+              href="https://nixtudio.in"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -167,8 +167,8 @@ export default function WorkPreview() {
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '14px')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '8px')}
             >
-              VIEW CASE STUDY →
-            </Link>
+              VISIT NIXTUDIO.IN →
+            </a>
           </div>
 
           {/* Right — metrics */}
@@ -236,27 +236,26 @@ export default function WorkPreview() {
               }}
             >
               <div
-                className="work-card-img"
+                className="work-card-img-container"
                 style={{
                   width: '100%',
                   height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #0a0a0a, #111)',
+                  overflow: 'hidden',
+                  background: '#000',
                 }}
               >
-                <span
+                <img
+                  src={p.title === 'Holy Family Dental' ? '/work/holy-family.png' : '/work/anagram.png'}
+                  alt={p.title}
                   style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '3rem',
-                    fontWeight: 300,
-                    color: 'rgba(255,255,255,0.06)',
-                    letterSpacing: '0.1em',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: 'grayscale(1) brightness(0.6)',
+                    transition: 'transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), filter 0.8s ease',
                   }}
-                >
-                  {p.title.split(' ')[0].toUpperCase()}
-                </span>
+                  className="project-img"
+                />
               </div>
             </div>
             <div style={{ padding: '1.8rem' }}>
@@ -292,9 +291,14 @@ export default function WorkPreview() {
       </div>
 
       <style>{`
+        .work-card:hover .project-img {
+          transform: scale(1.08);
+          filter: grayscale(0) brightness(0.9);
+        }
         @media (max-width: 900px) { .work-card-content { grid-template-columns: 1fr !important; gap: 2rem !important; }} 
         @media (max-width: 768px) { .work-section { padding: 6rem 1.5rem !important; } .work-row2 { grid-template-columns: 1fr !important; } .work-card-content { padding: 2rem 1.5rem !important; } }
       `}</style>
     </section>
   )
 }
+
