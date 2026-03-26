@@ -14,23 +14,28 @@ export default function Preloader() {
       setVisible(false)
       return
     }
+  }, [])
 
-    // Trigger curtain slide after booting sequence and a small pause
+  // Trigger curtain slide ONLY after booting sequence is complete
+  useEffect(() => {
+    if (!bootingComplete) return
+
+    // Small pause after decryption finishes for eye-rest
     const slideTimeout = setTimeout(() => {
       setCurtainActive(true)
-    }, 2800)
+    }, 600)
 
     // Remove from DOM after animation completes
     const removeTimeout = setTimeout(() => {
       setVisible(false)
       if (typeof window !== 'undefined') sessionStorage.setItem('revolq_v', '1')
-    }, 3900)
+    }, 1700)
 
     return () => {
       clearTimeout(slideTimeout)
       clearTimeout(removeTimeout)
     }
-  }, [])
+  }, [bootingComplete])
 
   if (!visible) return null
 
@@ -68,6 +73,7 @@ export default function Preloader() {
             text="REVOLQ" 
             speed={50} 
             maxIterations={15}
+            onComplete={() => setBootingComplete(true)}
           />
         </h1>
       </div>
