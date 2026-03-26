@@ -380,16 +380,21 @@ body {
 /* ── Liquid Glass Boundaries ── */
 .liquid-glass-section {
   position: relative;
-  isolation: isolate;
+  background: transparent !important;
   transition: background-color 0.5s ease;
 }
 
+.liquid-content {
+  position: relative;
+  z-index: 1;
+}
+
 .bg-zinc-950 {
-  background-color: #0c0c0e !important;
+  background-color: rgba(12, 12, 14, 0.8) !important;
 }
 
 .bg-black {
-  background-color: #000000 !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .liquid-edge {
@@ -401,6 +406,7 @@ body {
   z-index: 10;
   will-change: transform;
 }
+
 
 .liquid-edge-top {
   top: 0;

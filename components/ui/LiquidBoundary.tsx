@@ -43,8 +43,13 @@ export default function LiquidBoundary({ children, className = '', id }: LiquidB
     <div 
       ref={containerRef}
       id={id}
-      className={`liquid-glass-section ${className}`}
-      style={{ '--mouse-x': '0.5', '--mouse-y': '0.5' } as React.CSSProperties}
+      className="liquid-glass-section"
+      style={{ 
+        position: 'relative',
+        background: 'transparent',
+        '--mouse-x': '0.5', 
+        '--mouse-y': '0.5' 
+      } as React.CSSProperties}
     >
       {/* SVG Definitions */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
@@ -85,7 +90,7 @@ export default function LiquidBoundary({ children, className = '', id }: LiquidB
       </svg>
 
       {/* Top boundary */}
-      <div className="liquid-edge liquid-edge-top">
+      <div className="liquid-edge liquid-edge-top" style={{ zIndex: 10 }}>
         <svg className="liquid-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
           <rect 
             x="0" 
@@ -98,12 +103,12 @@ export default function LiquidBoundary({ children, className = '', id }: LiquidB
         </svg>
       </div>
       
-      <div className="liquid-content" style={{ position: 'relative', zIndex: 1 }}>
+      <div className={`liquid-content ${className}`} style={{ position: 'relative', zIndex: 1 }}>
         {children}
       </div>
       
       {/* Bottom boundary */}
-      <div className="liquid-edge liquid-edge-bottom">
+      <div className="liquid-edge liquid-edge-bottom" style={{ zIndex: 10 }}>
         <svg className="liquid-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
           <rect 
             x="0" 
@@ -116,5 +121,6 @@ export default function LiquidBoundary({ children, className = '', id }: LiquidB
         </svg>
       </div>
     </div>
+
   );
 }
