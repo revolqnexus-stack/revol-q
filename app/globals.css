@@ -150,31 +150,14 @@ body {
   animation-direction: reverse;
 }
 
-/* ── Service row hover ── */
-.service-row {
-  display: grid;
-  grid-template-columns: 60px 1fr 220px 40px;
-  align-items: center;
-  padding: 1.8rem 0;
-  border-bottom: 1px solid var(--line);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 300ms ease, border-color 300ms ease;
+.service-row-v2 {
+  will-change: background-color, transform;
 }
 
-.service-row:hover {
-  background: var(--glass);
-  border-bottom-color: var(--cobalt);
-}
-
-.service-row:hover .srv-num,
-.service-row:hover .srv-title,
-.service-row:hover .srv-arrow {
-  color: var(--cobalt2);
-}
-
-.service-row:hover .srv-arrow {
-  transform: translateX(8px);
+@media (max-width: 768px) {
+  .service-row-v2 {
+    padding: 1.5rem 0 !important;
+  }
 }
 
 .srv-num {
@@ -368,19 +351,7 @@ body {
   border-top: 1px solid var(--line);
 }
 
-/* ── Cursor ── */
 #revolq-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  background: var(--white);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 80ms ease-out, opacity 200ms;
   will-change: transform;
 }
 

@@ -3,12 +3,12 @@
 import Link from 'next/link'
 
 const services = [
-  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', desc: 'We don\'t build "websites"; we engineer headless digital ecosystems. Lightning-fast platforms designed for maximum conversion and zero latency.', href: '/services/web-development', from: '₹25,000' },
-  { num: '02', title: 'ALGORITHMIC POSITIONING',   tag: 'Technical SEO · JSON-LD',     desc: 'Securing the top position on Google isn\'t about keywords; it\'s about dominating the algorithmic graph. We ensure your competitors remain invisible.', href: '/services/seo-gbp', from: '₹8,000/month' },
-  { num: '03', title: 'AUTONOMOUS OPERATIONS',       tag: 'LLMs · n8n · WhatsApp API',      desc: 'We build digital systems that work while you sleep. Autonomous AI agents that capture leads, process data, and close sales 24/7.', href: '/services/ai-automation', from: '₹20,000 + ₹3,000/mo' },
-  { num: '04', title: 'BRAND BRUTALISM',  tag: 'Creative Direction · UX Copy',  desc: 'We engineer visual and verbal identities that cut through the noise, positioning your brand as the undisputed authority in your sector.', href: '/services/brand-strategy', from: '₹15,000' },
-  { num: '05', title: 'CONVERSION TELEMETRY',tag: 'CRO · User-Flow Tracking', desc: 'Traffic is useless if it doesn\'t convert. Advanced telemetry and friction-reduction to turn your platform into a high-yielding engine.', href: '/contact', from: 'Custom' },
-  { num: '06', title: 'TECH DEBT RESOLUTION',tag: 'Performance Auditing', desc: 'Aggressive 40-point technical audits to identify exactly why your current system is failing, bleeding money through slow loads and broken UX.', href: '/contact', from: 'Custom' },
+  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', desc: 'Templates bleed revenue. We abandon generic themes to engineer bespoke Next.js web applications from absolute zero. Built for millisecond load times and relentless conversion.', href: '/services/web-development', from: '₹25,000' },
+  { num: '02', title: 'ALGORITHMIC POSITIONING',   tag: 'Technical SEO · JSON-LD',     desc: 'Being on page two is mathematically identical to not existing. We dominate search algorithms through technical precision, semantic markup, and aggressive local authority.', href: '/services/seo-gbp', from: '₹8,000/month' },
+  { num: '03', title: 'AUTONOMOUS OPERATIONS',       tag: 'LLMs · n8n · WhatsApp API',      desc: 'Human response times kill deals. We build digital systems that work while you sleep, capturing leads and closing sales 24/7.', href: '/services/ai-automation', from: '₹20,000 + ₹3,000/mo' },
+  { num: '04', title: 'BRAND BRUTALISM',  tag: 'Creative Direction · UX Copy',  desc: 'Polite brands get ignored. We engineer visual and verbal identities that cut through the noise, positioning you as the undisputed authority.', href: '/services/brand-strategy', from: '₹15,000' },
+  { num: '05', title: 'CONVERSION TELEMETRY',tag: 'CRO · User-Flow Tracking', desc: 'Traffic is useless if it bounces. We map user psychology and eliminate structural friction to turn passive visitors into high-ticket clients.', href: '/contact', from: 'Custom' },
+  { num: '06', title: 'CONTINUOUS ITERATION',tag: 'Monthly Retainer · Support', desc: 'Digital dominance requires relentless iteration. We act as your off-site engineering team, scaling your ecosystem to outpace the market.', href: '/services/retainer', from: '₹8,000/month' },
 ]
 
 export default function ServicesPage() {

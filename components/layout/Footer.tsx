@@ -7,7 +7,7 @@ const services = [
   { name: 'Autonomous Operations', href: '/services/ai-automation' },
   { name: 'Brand Brutalism', href: '/services/brand-strategy' },
   { name: 'Conversion Telemetry', href: '/contact' },
-  { name: 'Tech Debt Resolution', href: '/contact' },
+  { name: 'Continuous Iteration', href: '/services/retainer' },
 ]
 
 export default function Footer() {
