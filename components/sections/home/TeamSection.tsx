@@ -1,27 +1,15 @@
 const team = [
   {
-    name: 'AJMAL MULLAPATI',
-    role: 'AI EXPERT',
-    overlay: 'CO-FOUNDER',
-    bg: 'linear-gradient(135deg, #050520 0%, #0a0a40 100%)',
-  },
-  {
     name: 'EATHEN BABY',
-    role: 'HEAD & COORDINATOR',
-    overlay: 'CO-FOUNDER',
+    role: 'CO-FOUNDER',
+    overlay: 'FOUNDER',
     bg: 'linear-gradient(135deg, #080808 0%, #141428 100%)',
   },
   {
-    name: 'RICHARD SHYMON',
-    role: 'MARKETING',
-    overlay: 'CO-FOUNDER',
-    bg: 'linear-gradient(135deg, #050510 0%, #0e0e30 100%)',
-  },
-  {
-    name: 'MANUVEL',
-    role: 'TECH & BACKEND',
-    overlay: 'CO-FOUNDER',
-    bg: 'linear-gradient(135deg, #080818 0%, #111138 100%)',
+    name: 'AJMAL MULLAPATI',
+    role: 'CO-FOUNDER',
+    overlay: 'FOUNDER',
+    bg: 'linear-gradient(135deg, #050520 0%, #0a0a40 100%)',
   },
 ]
 
@@ -49,7 +37,7 @@ export default function TeamSection() {
             color: 'var(--white)',
           }}
         >
-          Four people.
+          Two people.
           <br />
           <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '1.5px var(--white)' }}>
             One system.
@@ -58,7 +46,7 @@ export default function TeamSection() {
       </div>
 
       <div
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', maxWidth: '900px' }}
         className="team-grid"
       >
         {team.map((p) => (
@@ -137,15 +125,13 @@ export default function TeamSection() {
             color: 'var(--fog)',
           }}
         >
-          REVOLQ is four people in Kerala who got tired of watching great local
+          REVOLQ is two people in Kerala who got tired of watching great local
           businesses go invisible online. We build the digital systems that change that.
         </p>
       </div>
 
       <style>{`
-        @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 560px) { .team-grid { grid-template-columns: 1fr !important; } }
-        @media (max-width: 768px) { .team-section { padding: 6rem 1.5rem !important; } }
+        @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr !important; } .team-section { padding: 6rem 1.5rem !important; } }
       `}</style>
     </section>
   )

@@ -34,7 +34,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--fog)', lineHeight: 1.9, marginBottom: '1.5rem' }}>
-              We&apos;re four people in Kerala. We build websites that rank, AI systems
+              We&apos;re two people in Kerala. We build websites that rank, AI systems
               that work at 3am, and SEO that compounds over time.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--white)', lineHeight: 1.9 }}>
