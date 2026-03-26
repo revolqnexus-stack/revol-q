@@ -1,8 +1,11 @@
 'use client'
 
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import GlassButton from '@/components/ui/GlassButton'
 
 export default function CTASection() {
+  const router = useRouter()
+
   return (
     <section
       style={{
@@ -88,64 +91,28 @@ export default function CTASection() {
       </p>
 
       {/* CTAs */}
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Link
-          href="/contact"
-          style={{
-            background: 'var(--white)',
-            color: 'var(--black)',
-            padding: '1.1rem 3rem',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: '0.72rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            textDecoration: 'none',
-            transition: 'background 300ms, color 300ms',
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.background = 'var(--cobalt)'
-            el.style.color = 'var(--white)'
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.background = 'var(--white)'
-            el.style.color = 'var(--black)'
-          }}
+      <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <GlassButton
+          variant="bold"
+          onClick={() => router.push('/contact')}
+          textClassName="text-[0.72rem] tracking-[0.18em] font-medium"
+          borderRadius={0}
+          borderWidth={0.1}
+          style={{ padding: '0.2rem 1.5rem' }}
         >
           START A PROJECT
-        </Link>
+        </GlassButton>
 
-        <a
-          href="https://wa.me/917995617374"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            background: 'transparent',
-            border: '1px solid var(--line2)',
-            color: 'var(--fog)',
-            padding: '1.1rem 3rem',
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.72rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            textDecoration: 'none',
-            transition: 'border-color 300ms, color 300ms',
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.borderColor = 'var(--cobalt)'
-            el.style.color = 'var(--cobalt2)'
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.borderColor = 'var(--line2)'
-            el.style.color = 'var(--fog)'
-          }}
+        <GlassButton
+          variant="subtle"
+          onClick={() => window.open('https://wa.me/917995617374', '_blank', 'noopener,noreferrer')}
+          textClassName="text-[0.72rem] tracking-[0.18em] font-medium text-white/80"
+          borderRadius={0}
+          borderWidth={0.05}
+          style={{ padding: '0.2rem 1.5rem' }}
         >
           WHATSAPP US
-        </a>
+        </GlassButton>
       </div>
     </section>
   )

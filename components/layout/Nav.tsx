@@ -1,9 +1,11 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
+import GlassButton from '@/components/ui/GlassButton'
 
 const navLinks = [
   { href: '/work',     label: 'WORK' },
@@ -15,6 +17,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -81,8 +84,8 @@ export default function Nav() {
                   textTransform: 'uppercase',
                   transition: 'color 200ms',
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--white)')}
-                onMouseLeave={(e) =>
+                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--white)')}
+                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) =>
                   ((e.currentTarget as HTMLAnchorElement).style.color = active ? 'var(--white)' : 'var(--fog)')
                 }
               >
@@ -94,38 +97,21 @@ export default function Nav() {
 
         {/* Right CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Link
-            href="/contact"
-            style={{
-              border: '1px solid var(--line2)',
-              color: 'var(--fog)',
-              padding: '0.55rem 1.3rem',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.62rem',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              transition: 'border-color 200ms, color 200ms',
-              display: 'none',
-            }}
+          <GlassButton
+            variant="subtle"
+            size="sm"
+            onClick={() => router.push('/contact')}
             className="nav-cta"
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.borderColor = 'var(--cobalt)'
-              el.style.color = 'var(--cobalt2)'
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.borderColor = 'var(--line2)'
-              el.style.color = 'var(--fog)'
-            }}
+            textClassName="text-[0.58rem] tracking-[0.2em] font-medium text-white/80"
+            borderRadius={0}
+            borderWidth={0.05}
+            backgroundOpacity={0.08}
           >
             LET&apos;S TALK
-          </Link>
+          </GlassButton>
 
-          {/* Hamburger */}
           <button
-            onClick={() => setMobileOpen((v) => !v)}
+            onClick={() => setMobileOpen((open) => !open)}
             aria-label="Toggle menu"
             style={{
               background: 'none',
@@ -176,8 +162,8 @@ export default function Nav() {
               opacity: mobileOpen ? 1 : 0,
               transform: mobileOpen ? 'none' : 'translateY(20px)',
             }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--cobalt2)')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--white)')}
+            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--cobalt2)')}
+            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--white)')}
           >
             {l.label}
           </Link>

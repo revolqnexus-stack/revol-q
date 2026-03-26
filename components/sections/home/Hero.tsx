@@ -1,8 +1,11 @@
 'use client'
 
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import GlassButton from '@/components/ui/GlassButton'
 
 export default function Hero() {
+  const router = useRouter()
+
   return (
     <main
       style={{
@@ -114,77 +117,37 @@ export default function Hero() {
           <div
             style={{
               display: 'flex',
-              gap: '1rem',
+              gap: '1.5rem',
               flexWrap: 'wrap',
               justifyContent: 'flex-end',
               overflow: 'hidden',
+              padding: '10px 0',
             }}
+            className="hero-ctas"
           >
-            <Link
-              href="/contact"
-              className="animate-reveal btn-primary"
-              style={{
-                background: 'var(--white)',
-                color: 'var(--black)',
-                padding: '1rem 2.5rem',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: '0.72rem',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                transition: 'background 300ms, color 300ms',
-                animationDelay: '0.6s',
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = 'var(--cobalt)'
-                el.style.color = 'var(--white)'
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = 'var(--white)'
-                el.style.color = 'var(--black)'
-              }}
+            <GlassButton
+              variant="bold"
+              className="animate-reveal"
+              style={{ animationDelay: '0.6s' }}
+              onClick={() => router.push('/contact')}
+              textClassName="text-[0.62rem] tracking-[0.2em] font-medium"
+              borderRadius={0}
+              borderWidth={0.1}
             >
               START A PROJECT →
-            </Link>
+            </GlassButton>
 
-            <Link
-              href="/work"
-              className="animate-reveal btn-ghost"
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--line2)',
-                color: 'var(--fog)',
-                padding: '1rem 2.5rem',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.72rem',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                transition: 'border-color 300ms, color 300ms',
-                animationDelay: '0.7s',
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.borderColor = 'var(--cobalt)'
-                el.style.color = 'var(--cobalt2)'
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.borderColor = 'var(--line2)'
-                el.style.color = 'var(--fog)'
-              }}
+            <GlassButton
+              variant="subtle"
+              className="animate-reveal"
+              style={{ animationDelay: '0.7s' }}
+              onClick={() => router.push('/work')}
+              textClassName="text-[0.62rem] tracking-[0.2em] font-medium text-white/70"
+              borderRadius={0}
+              borderWidth={0.05}
             >
               VIEW OUR WORK
-            </Link>
+            </GlassButton>
           </div>
         </div>
       </div>

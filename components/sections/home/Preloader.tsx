@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import DecryptedText from '@/components/ui/DecryptedText'
 
 export default function Preloader() {
   const [visible, setVisible] = useState(true)
   const [curtainActive, setCurtainActive] = useState(false)
+  const [bootingComplete, setBootingComplete] = useState(false)
 
   useEffect(() => {
     // Skip on repeat visits in same session
@@ -13,17 +15,20 @@ export default function Preloader() {
       return
     }
 
-    // Trigger curtain slide after 1.6s
-    const t1 = setTimeout(() => setCurtainActive(true), 1600)
+    // Trigger curtain slide after booting sequence and a small pause
+    const slideTimeout = setTimeout(() => {
+      setCurtainActive(true)
+    }, 2800)
+
     // Remove from DOM after animation completes
-    const t2 = setTimeout(() => {
+    const removeTimeout = setTimeout(() => {
       setVisible(false)
       if (typeof window !== 'undefined') sessionStorage.setItem('revolq_v', '1')
-    }, 2700)
+    }, 3900)
 
     return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
+      clearTimeout(slideTimeout)
+      clearTimeout(removeTimeout)
     }
   }, [])
 
@@ -40,60 +45,77 @@ export default function Preloader() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '1.5rem',
+        gap: '0.8rem', // Tighter gap for the logo/label stack
         transform: curtainActive ? 'translateY(-100%)' : 'translateY(0)',
         transition: curtainActive ? 'transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)' : 'none',
         willChange: 'transform',
       }}
     >
-      <div style={{ overflow: 'hidden' }}>
+      <div style={{ overflow: 'hidden', marginBottom: '0.5rem' }}>
         <h1
-          className="animate-reveal"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(3rem, 8vw, 7rem)',
-            fontWeight: 300,
-            letterSpacing: '0.5em',
+            fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+            fontWeight: 400,
+            letterSpacing: '0.8em',
             textTransform: 'uppercase',
             color: 'var(--white)',
-            animationDelay: '0.2s',
+            textAlign: 'center',
+            paddingLeft: '0.8em', // Compensate for trailing letter spacing
           }}
         >
-          REVOLQ
+          <DecryptedText 
+            text="REVOLQ" 
+            speed={50} 
+            maxIterations={15}
+          />
         </h1>
       </div>
 
       <div
-        className="animate-reveal"
         style={{
           overflow: 'hidden',
-          animationDelay: '0.5s',
+          marginBottom: '1.2rem'
         }}
       >
         <span
           style={{
-            fontSize: '0.6rem',
-            letterSpacing: '0.45em',
+            fontSize: '0.55rem',
+            letterSpacing: '0.35em',
             textTransform: 'uppercase',
             color: 'var(--dim)',
             display: 'block',
             fontFamily: 'var(--font-body)',
+            fontWeight: 300,
           }}
         >
-          DIGITAL AGENCY · KERALA · INDIA
+          <DecryptedText 
+            text="DIGITAL AGENCY — KERALA — INDIA" 
+            speed={30} 
+            maxIterations={20}
+          />
         </span>
       </div>
 
       {/* Cobalt underline draw */}
       <div
-        className="animate-reveal"
         style={{
           height: '1px',
           background: 'var(--cobalt)',
-          width: '8rem',
-          animationDelay: '0.7s',
+          width: '6rem',
+          transformOrigin: 'center',
+          animation: 'drawIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          animationDelay: '0.8s',
+          opacity: 0,
         }}
       />
+
+      <style>{`
+        @keyframes drawIn {
+          from { transform: scaleX(0); opacity: 0; }
+          to { transform: scaleX(1); opacity: 1; }
+        }
+      `}</style>
     </div>
   )
 }

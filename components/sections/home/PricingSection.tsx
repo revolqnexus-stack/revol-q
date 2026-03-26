@@ -1,6 +1,7 @@
 'use client'
 
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import GlassButton from '@/components/ui/GlassButton'
 
 type Feature = { text: string; included: boolean }
 
@@ -71,6 +72,7 @@ const plans: Plan[] = [
 ]
 
 export default function PricingSection() {
+  const router = useRouter()
   return (
     <section
       style={{ padding: '10rem 4rem', position: 'relative', zIndex: 10 }}
@@ -171,52 +173,17 @@ export default function PricingSection() {
               ))}
             </div>
 
-            <Link
-              href="/contact"
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                marginTop: '2rem',
-                padding: '0.9rem 1.5rem',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.65rem',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                transition: 'background 250ms, color 250ms, border-color 250ms',
-                ...(plan.featured
-                  ? {
-                      background: 'var(--cobalt)',
-                      color: 'var(--white)',
-                      border: 'none',
-                    }
-                  : {
-                      background: 'transparent',
-                      color: 'var(--fog)',
-                      border: '1px solid var(--line2)',
-                    }),
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                if (plan.featured) {
-                  el.style.background = 'var(--cobalt2)'
-                } else {
-                  el.style.borderColor = 'var(--cobalt)'
-                  el.style.color = 'var(--cobalt2)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement
-                if (plan.featured) {
-                  el.style.background = 'var(--cobalt)'
-                } else {
-                  el.style.borderColor = 'var(--line2)'
-                  el.style.color = 'var(--fog)'
-                }
-              }}
+            <GlassButton
+              variant={plan.featured ? "bold" : "subtle"}
+              onClick={() => router.push('/contact')}
+              className="w-full mt-8"
+              textClassName={plan.featured ? "text-[0.65rem] tracking-[0.2em] font-medium" : "text-[0.65rem] tracking-[0.2em] font-medium text-white/70"}
+              borderRadius={0}
+              borderWidth={plan.featured ? 0.1 : 0.05}
+              style={{ padding: '0.9rem 1.5rem', width: '100%', marginTop: '2rem' }}
             >
               GET STARTED
-            </Link>
+            </GlassButton>
           </div>
         ))}
       </div>
@@ -252,25 +219,16 @@ export default function PricingSection() {
           >
             ₹20,000 setup + ₹3,000/month
           </span>
-          <Link
-            href="/contact"
-            style={{
-              background: 'var(--cobalt)',
-              color: 'var(--white)',
-              padding: '0.8rem 1.8rem',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.62rem',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              transition: 'background 250ms',
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = 'var(--cobalt2)')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = 'var(--cobalt)')}
+          <GlassButton
+            variant="bold"
+            onClick={() => router.push('/contact')}
+            textClassName="text-[0.62rem] tracking-[0.18em] font-medium"
+            borderRadius={0}
+            borderWidth={0.1}
+            style={{ padding: '0.8rem 1.8rem', whiteSpace: 'nowrap' }}
           >
             GET STARTED →
-          </Link>
+          </GlassButton>
         </div>
       </div>
 
