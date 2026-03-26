@@ -1,0 +1,407 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Core palette */
+  --black:   #000000;
+  --ink:     #080808;
+  --ink2:    #0f0f0f;
+  --ink3:    #141414;
+  --ink4:    #1a1a1a;
+
+  /* Text */
+  --white:   #f8f8f8;
+  --fog:     rgba(255,255,255,0.55);
+  --dim:     rgba(255,255,255,0.25);
+  --xdim:    rgba(255,255,255,0.1);
+
+  /* Electric Brutalism accent */
+  --cobalt:  #1A1AFF;
+  --ultra:   #0D0D99;
+  --cobalt2: #3333ff;
+
+  /* Borders */
+  --line:    rgba(255,255,255,0.07);
+  --line2:   rgba(255,255,255,0.14);
+
+  /* Glass */
+  --glass:   rgba(255,255,255,0.025);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── Liquid Background ── */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--black);
+  overflow: hidden;
+  filter: blur(40px) contrast(80);
+  -webkit-filter: blur(40px) contrast(80);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
+
+.blob-1 {
+  width: 60vw;
+  height: 60vw;
+  background: var(--cobalt);
+  top: -10%;
+  left: -10%;
+  animation: blobFloat1 14s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 50vw;
+  height: 50vw;
+  background: var(--ultra);
+  bottom: -20%;
+  right: -10%;
+  animation: blobFloat2 18s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+  width: 35vw;
+  height: 35vw;
+  background: #0505cc;
+  top: 40%;
+  left: 40%;
+  animation: blobFloat1 22s ease-in-out infinite alternate-reverse;
+  opacity: 0.6;
+}
+
+@keyframes blobFloat1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(5vw, -10vh) scale(1.1); }
+  100% { transform: translate(-5vw, 5vh) scale(0.95); }
+}
+
+@keyframes blobFloat2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-10vw, 5vh) scale(1.15); }
+  100% { transform: translate(5vw, -5vh) scale(0.9); }
+}
+
+/* ── Preloader ── */
+@keyframes revealUp {
+  from { transform: translateY(105%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes slideUpCurtain {
+  to { transform: translateY(-100%); }
+}
+
+.animate-reveal {
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-curtain {
+  animation: slideUpCurtain 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation-delay: 1.6s;
+}
+
+/* ── Progress Bar ── */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  z-index: 9000;
+  background: var(--white);
+  width: 0%;
+  transition: width 50ms linear;
+  pointer-events: none;
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* ── Service row hover ── */
+.service-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 220px 40px;
+  align-items: center;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 300ms ease, border-color 300ms ease;
+}
+
+.service-row:hover {
+  background: var(--glass);
+  border-bottom-color: var(--cobalt);
+}
+
+.service-row:hover .srv-num,
+.service-row:hover .srv-title,
+.service-row:hover .srv-arrow {
+  color: var(--cobalt2);
+}
+
+.service-row:hover .srv-arrow {
+  transform: translateX(8px);
+}
+
+.srv-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  transition: color 300ms;
+}
+
+.srv-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-weight: 300;
+  color: var(--white);
+  transition: color 300ms;
+  line-height: 1;
+}
+
+.srv-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+}
+
+.srv-arrow {
+  font-size: 1rem;
+  color: var(--dim);
+  justify-self: end;
+  transition: transform 300ms ease, color 300ms;
+}
+
+/* ── Work card image hover ── */
+.work-card-img {
+  filter: grayscale(100%) brightness(0.65);
+  transform: scale(1.03);
+  transition: filter 800ms ease, transform 800ms ease;
+}
+
+.work-card:hover .work-card-img {
+  filter: grayscale(0%) brightness(0.85);
+  transform: scale(1);
+}
+
+.work-card {
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: border-color 400ms;
+}
+
+.work-card:hover {
+  border-color: rgba(26,26,255,0.4);
+}
+
+/* ── Flow diagram ── */
+.flow-node {
+  background: var(--ink4);
+  border: 1px solid var(--line);
+  padding: 0.75rem 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+  width: 100%;
+  transition: border-color 300ms;
+}
+
+.flow-node:hover {
+  border-color: var(--cobalt);
+}
+
+.flow-connector {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--line);
+  transform: translateX(-50%);
+}
+
+.flow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cobalt);
+  position: relative;
+  animation: flowDown 2s linear infinite;
+  z-index: 1;
+}
+
+@keyframes flowDown {
+  0%   { transform: translateY(-16px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(16px);  opacity: 0; }
+}
+
+/* ── Pricing ── */
+.pricing-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--fog);
+}
+
+.pricing-feature.excluded {
+  color: var(--xdim);
+  opacity: 0.5;
+}
+
+/* ── Team card ── */
+.team-card {
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: border-color 400ms;
+}
+
+.team-card:hover {
+  border-color: rgba(26,26,255,0.45);
+}
+
+.team-img {
+  filter: grayscale(100%);
+  transition: filter 600ms;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card:hover .team-img {
+  filter: grayscale(0%);
+}
+
+/* ── Pulse dot ── */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+/* ── Ghost text ── */
+.ghost-text {
+  position: absolute;
+  font-size: 16vw;
+  font-weight: 300;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.025);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ── Label tag ── */
+.label-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--cobalt2);
+  font-family: var(--font-mono, monospace);
+  font-weight: 300;
+}
+
+/* ── Section divider ── */
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+/* ── Cursor ── */
+#revolq-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: var(--white);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 80ms ease-out, opacity 200ms;
+  will-change: transform;
+}
+
+@media (hover: none) {
+  #revolq-cursor { display: none; }
+  body { cursor: auto; }
+}
+
+/* ── Reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Mobile utility ── */
+@media (max-width: 768px) {
+  .service-row {
+    grid-template-columns: 40px 1fr 30px;
+  }
+  .srv-tag { display: none; }
+}
