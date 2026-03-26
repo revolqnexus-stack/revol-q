@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'SEO & GBP',
-  description: 'Local SEO and Google Business Profile management that compounds over time. Show up first. Every search.',
+  title: 'Algorithmic Positioning & Local Graph Dominance',
+  description: 'Securing the top position on Google isn\'t about keywords; it\'s about dominating the algorithmic graph. Aggressive local search architecture.',
 }
 
 const deliverables = [
@@ -23,7 +23,7 @@ export default function SeoGbpPage() {
   return (
     <main style={{ paddingTop: '10rem', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
       <div style={{ padding: '0 4rem 8rem' }} className="page-inner">
-        <span className="label-tag">03 — SEO &amp; GBP</span>
+        <span className="label-tag">03 — ALGORITHMIC POSITIONING</span>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 8rem)', fontWeight: 300, lineHeight: 0.9, marginTop: '1.2rem', color: 'var(--white)' }}>
           Be found by the<br />
           <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>customers who matter.</em>

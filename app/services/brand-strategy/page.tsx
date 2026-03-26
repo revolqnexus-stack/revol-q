@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Brand Strategy',
-  description: 'Positioning, identity, and the visual language that makes your brand unforgettable in a crowded market.',
+  title: 'Creative Direction & Brand Brutalism',
+  description: 'We engineer visual and verbal identities that cut through the noise. Position your brand as the undisputed authority in your sector.',
 }
 
 const deliverables = [
@@ -20,7 +20,7 @@ export default function BrandStrategyPage() {
   return (
     <main style={{ paddingTop: '10rem', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
       <div style={{ padding: '0 4rem 8rem' }} className="page-inner">
-        <span className="label-tag">04 — BRAND STRATEGY</span>
+        <span className="label-tag">04 — BRAND BRUTALISM</span>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 8rem)', fontWeight: 300, lineHeight: 0.9, marginTop: '1.2rem', color: 'var(--white)' }}>
           The story your<br />
           <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>business tells.</em>

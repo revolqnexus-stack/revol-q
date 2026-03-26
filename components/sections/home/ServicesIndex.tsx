@@ -3,11 +3,12 @@
 import Link from 'next/link'
 
 const services = [
-  { num: '01', title: 'WEB DEVELOPMENT', tag: 'Next.js · TypeScript · Tailwind', href: '/services/web-development' },
-  { num: '02', title: 'AI AUTOMATION',   tag: 'GPT-4 · n8n · WhatsApp API',     href: '/services/ai-automation' },
-  { num: '03', title: 'SEO & GBP',       tag: 'Local Search · Google Maps',      href: '/services/seo-gbp' },
-  { num: '04', title: 'BRAND STRATEGY',  tag: 'Identity · Positioning · Voice',  href: '/services/brand-strategy' },
-  { num: '05', title: 'MONTHLY RETAINER',tag: 'Ongoing · Managed · Compounding', href: '/services/retainer' },
+  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', href: '/services/web-development' },
+  { num: '02', title: 'ALGORITHMIC POSITIONING',   tag: 'Technical SEO · JSON-LD', href: '/services/seo-gbp' },
+  { num: '03', title: 'AUTONOMOUS OPERATIONS',       tag: 'LLMs · n8n · WhatsApp API', href: '/services/ai-automation' },
+  { num: '04', title: 'BRAND BRUTALISM',  tag: 'Creative Direction · UX Copy', href: '/services/brand-strategy' },
+  { num: '05', title: 'CONVERSION TELEMETRY',tag: 'CRO · User-Flow Tracking', href: '/contact' },
+  { num: '06', title: 'TECH DEBT RESOLUTION',tag: 'Performance Auditing', href: '/contact' },
 ]
 
 export default function ServicesIndex() {

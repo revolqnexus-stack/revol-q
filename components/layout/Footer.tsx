@@ -2,11 +2,12 @@ import Link from 'next/link'
 
 const navLinks = ['Work', 'Services', 'About', 'Contact']
 const services = [
-  'Web Development',
-  'AI Automation',
-  'SEO & GBP',
-  'Brand Strategy',
-  'Monthly Retainer',
+  { name: 'Digital Ecosystem Architecture', href: '/services/web-development' },
+  { name: 'Algorithmic Positioning', href: '/services/seo-gbp' },
+  { name: 'Autonomous Operations', href: '/services/ai-automation' },
+  { name: 'Brand Brutalism', href: '/services/brand-strategy' },
+  { name: 'Conversion Telemetry', href: '/contact' },
+  { name: 'Tech Debt Resolution', href: '/contact' },
 ]
 
 export default function Footer() {
@@ -90,8 +91,8 @@ export default function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {services.map((s) => (
               <Link
-                key={s}
-                href={`/services/${s.toLowerCase().replace(/\s+&?\s*/g, '-').replace(/[^a-z-]/g, '')}`}
+                key={s.name}
+                href={s.href}
                 className="footer-link"
                 style={{
                   fontSize: '0.85rem',
@@ -100,7 +101,7 @@ export default function Footer() {
                   transition: 'color 200ms',
                 }}
               >
-                {s}
+                {s.name}
               </Link>
             ))}
           </div>

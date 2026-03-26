@@ -22,7 +22,7 @@ export default function WebDevPage() {
     <main style={{ paddingTop: '10rem', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
       <div style={{ padding: '0 4rem 8rem' }} className="page-inner">
         {/* Hero */}
-        <span className="label-tag">01 — WEB DEVELOPMENT</span>
+        <span className="label-tag">01 — DIGITAL ECOSYSTEM ARCHITECTURE</span>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 8rem)', fontWeight: 300, lineHeight: 0.9, marginTop: '1.2rem', color: 'var(--white)' }}>
           Websites that rank,<br />
           <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>convert, and scale.</em>

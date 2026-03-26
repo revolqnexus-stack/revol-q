@@ -3,11 +3,12 @@
 import Link from 'next/link'
 
 const services = [
-  { num: '01', title: 'WEB DEVELOPMENT', tag: 'Next.js · TypeScript · Tailwind', desc: 'Custom websites built for performance, SEO, and conversion. No templates. No themes.', href: '/services/web-development', from: '₹25,000' },
-  { num: '02', title: 'AI AUTOMATION',   tag: 'GPT-4 · n8n · WhatsApp API',     desc: 'AI agents that handle bookings, reminders, and reviews — 24/7, zero human effort.', href: '/services/ai-automation', from: '₹20,000 + ₹3,000/mo' },
-  { num: '03', title: 'SEO & GBP',       tag: 'Local Search · Google Maps',      desc: 'Local SEO and Google Business Profile that puts you first in every search.', href: '/services/seo-gbp', from: '₹8,000/month' },
-  { num: '04', title: 'BRAND STRATEGY',  tag: 'Identity · Positioning · Voice',  desc: 'The visual language and positioning that makes your brand unforgettable.', href: '/services/brand-strategy', from: '₹15,000' },
-  { num: '05', title: 'MONTHLY RETAINER',tag: 'Ongoing · Managed · Compounding', desc: 'GBP management, SEO monitoring, content, and AI maintenance every month.', href: '/services/retainer', from: '₹4,000/month' },
+  { num: '01', title: 'DIGITAL ECOSYSTEM ARCHITECTURE', tag: 'Next.js · React · Vercel', desc: 'We don\'t build "websites"; we engineer headless digital ecosystems. Lightning-fast platforms designed for maximum conversion and zero latency.', href: '/services/web-development', from: '₹25,000' },
+  { num: '02', title: 'ALGORITHMIC POSITIONING',   tag: 'Technical SEO · JSON-LD',     desc: 'Securing the top position on Google isn\'t about keywords; it\'s about dominating the algorithmic graph. We ensure your competitors remain invisible.', href: '/services/seo-gbp', from: '₹8,000/month' },
+  { num: '03', title: 'AUTONOMOUS OPERATIONS',       tag: 'LLMs · n8n · WhatsApp API',      desc: 'We build digital systems that work while you sleep. Autonomous AI agents that capture leads, process data, and close sales 24/7.', href: '/services/ai-automation', from: '₹20,000 + ₹3,000/mo' },
+  { num: '04', title: 'BRAND BRUTALISM',  tag: 'Creative Direction · UX Copy',  desc: 'We engineer visual and verbal identities that cut through the noise, positioning your brand as the undisputed authority in your sector.', href: '/services/brand-strategy', from: '₹15,000' },
+  { num: '05', title: 'CONVERSION TELEMETRY',tag: 'CRO · User-Flow Tracking', desc: 'Traffic is useless if it doesn\'t convert. Advanced telemetry and friction-reduction to turn your platform into a high-yielding engine.', href: '/contact', from: 'Custom' },
+  { num: '06', title: 'TECH DEBT RESOLUTION',tag: 'Performance Auditing', desc: 'Aggressive 40-point technical audits to identify exactly why your current system is failing, bleeding money through slow loads and broken UX.', href: '/contact', from: 'Custom' },
 ]
 
 export default function ServicesPage() {

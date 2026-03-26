@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Web Development',
-  description: 'Custom Next.js websites built for performance, SEO, and growth. No templates. Not themes. From ₹25,000.',
+  title: 'Digital Ecosystem Architecture',
+  description: 'We don\'t build websites; we engineer headless digital ecosystems. Lightning-fast platforms designed for maximum conversion and zero latency.',
 }
 
 export default function WebDevLayout({

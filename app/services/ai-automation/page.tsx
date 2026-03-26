@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'AI Automation',
-  description: 'GPT-4 AI agents and n8n workflows that handle WhatsApp bookings, reminders, payments, and reviews 24/7.',
+  title: 'Autonomous Operations & AI Infrastructure',
+  description: 'We build digital systems that work while you sleep. Autonomous agents that capture leads, process data, and close sales 24/7.',
 }
 
 const plans = [
@@ -18,7 +18,7 @@ export default function AIAutomationPage() {
   return (
     <main style={{ paddingTop: '10rem', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
       <div style={{ padding: '0 4rem 8rem' }} className="page-inner">
-        <span className="label-tag">02 — AI AUTOMATION</span>
+        <span className="label-tag">02 — AUTONOMOUS OPERATIONS</span>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 8rem)', fontWeight: 300, lineHeight: 0.9, marginTop: '1.2rem', color: 'var(--white)' }}>
           Your business,<br />
           <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>running at 3am.</em>
