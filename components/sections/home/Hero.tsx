@@ -54,6 +54,7 @@ export default function Hero() {
               letterSpacing: '-0.02em',
               color: 'var(--white)',
               animationDelay: '0.2s',
+              paddingLeft: '0.05em', // Prevent clipping
             }}
           >
             Building systems
@@ -72,6 +73,7 @@ export default function Hero() {
               color: 'transparent',
               WebkitTextStroke: '2px var(--white)',
               animationDelay: '0.35s',
+              paddingLeft: '0.05em', // Prevent clipping
             }}
           >
             that work.
