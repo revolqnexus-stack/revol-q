@@ -131,7 +131,10 @@ export default function TeamSection() {
       <style>{`
         .team-card:hover .profile-img {
           transform: scale(1.05);
-          filter: grayscale(0.2) brightness(1.1) contrast(1.1);
+          filter: grayscale(0) brightness(1) contrast(1);
+        }
+        .profile-img {
+          filter: grayscale(1) contrast(1.2) brightness(0.9) !important;
         }
         @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr !important; } .team-section { padding: 6rem 1.5rem !important; } }
       `}</style>
