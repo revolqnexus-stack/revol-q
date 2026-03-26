@@ -4,12 +4,14 @@ const team = [
     role: 'CO-FOUNDER',
     overlay: 'FOUNDER',
     img: '/team/eathen.png',
+    position: 'center',
   },
   {
     name: 'AJMAL MULLAPATI',
     role: 'CO-FOUNDER',
     overlay: 'FOUNDER',
     img: '/team/ajmal.png',
+    position: '20% 15%', // Adjusted to show face from the selfie
   },
 ]
 
@@ -69,7 +71,8 @@ export default function TeamSection() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    filter: 'grayscale(1) brightness(0.8) contrast(1.1)',
+                    objectPosition: p.position || 'center',
+                    filter: 'grayscale(1) contrast(1.2) brightness(0.9) !important',
                     transition: 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease',
                   }}
                   className="profile-img"
