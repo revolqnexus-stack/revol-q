@@ -1,10 +1,6 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'NIXTUDIO Case Study',
-  description: 'How REVOLQ built a complete digital system for NIXTUDIO — Kerala\'s premier bridal studio. 464+ reviews, 4.9★ rating.',
-}
+import Link from 'next/link'
 
 const results = [
   { num: '464+', label: 'Google Reviews' },
@@ -34,9 +30,36 @@ export default function NixtudioPage() {
         <em style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 3vw, 3rem)', fontStyle: 'italic', color: 'var(--cobalt2)', display: 'block', marginTop: '0.5rem' }}>
           by Nikita Liby
         </em>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--fog)', lineHeight: 1.9, maxWidth: '600px', marginTop: '2rem' }}>
-          Redefining the digital presence for Kerala&apos;s premier bridal studio in Pala. Complete web, SEO, and AI automation system built from the ground up.
-        </p>
+        <div style={{ marginTop: '2rem', maxWidth: '650px' }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--fog)', lineHeight: 1.9, marginBottom: '1.5rem' }}>
+            Redefining the digital presence for Kerala&apos;s premier bridal studio in Pala. We engineered a complete web, SEO, and AI automation system from the ground up, transforming chaotic WhatsApp enquiries into a fully automated, 24/7 digital booking engine.
+          </p>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--fog)', lineHeight: 1.9, marginBottom: '2.5rem' }}>
+            At REVOLQ, we don&apos;t conform to rigid templates. We meticulously architect every digital experience to embody the exact aesthetic signature and brand identity of our clients. For Nixtudio, this meant translating their sophisticated, high-end bridal artistry into a flawless, performance-driven web environment designed to command attention and convert.
+          </p>
+          <a
+            href="https://nixtudio.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.7rem',
+              letterSpacing: '0.2em',
+              color: 'var(--cobalt2)',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(26,26,255,0.4)',
+              paddingBottom: '0.3rem',
+              transition: 'border-color 200ms',
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'var(--cobalt2)')}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'rgba(26,26,255,0.4)')}
+          >
+            VIEW LIVE PROJECT ↗
+          </a>
+        </div>
 
         {/* Image hero */}
         <div className="work-card" style={{ background: 'var(--ink3)', marginTop: '4rem' }}>
