@@ -140,7 +140,7 @@ export default function Footer() {
                 transition: 'color 200ms',
               }}
             >
-              WhatsApp Us →
+              WHATSAPP US →
             </a>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function Footer() {
         className="footer-bottom"
       >
         <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--dim)' }}>
-          © 2026 REVOLQ. All rights reserved.
+          © 2026 REVOL-Q. All rights reserved.
         </span>
         <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--dim)' }}>
           Designed &amp; built by REVOLQ
