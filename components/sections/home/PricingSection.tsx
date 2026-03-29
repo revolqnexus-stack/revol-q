@@ -206,7 +206,7 @@ export default function PricingSection() {
         <div>
           <div className="label-tag">AI AUTOMATION SYSTEM</div>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--fog)', marginTop: '0.5rem' }}>
-            WhatsApp AI agent + n8n workflows + dashboard + full setup
+            Custom AI Agent: ₹25,000 Setup | Maintenance starting at ₹10,000/month
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
@@ -218,7 +218,7 @@ export default function PricingSection() {
               color: 'var(--white)',
             }}
           >
-            ₹20,000 setup + ₹3,000/month
+            ₹25,000 setup + ₹10,000/month
           </span>
           <GlassButton
             variant="bold"
