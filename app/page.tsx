@@ -4,7 +4,7 @@ import CredibilityRail from '@/components/sections/home/CredibilityRail'
 import WorkPreview from '@/components/sections/home/WorkPreview'
 import ServicesIndex from '@/components/sections/home/ServicesIndex'
 import AutomationSection from '@/components/sections/home/AutomationSection'
-import ProcessSection from '@/components/sections/home/ProcessSection'
+
 import PricingSection from '@/components/sections/home/PricingSection'
 import TeamSection from '@/components/sections/home/TeamSection'
 import CTASection from '@/components/sections/home/CTASection'
@@ -35,9 +35,7 @@ export default function HomePage() {
         <AutomationSection />
       </LiquidBoundary>
       
-      <LiquidBoundary className="bg-black">
-        <ProcessSection />
-      </LiquidBoundary>
+      
       
       <LiquidBoundary className="bg-zinc-950">
         <PricingSection />

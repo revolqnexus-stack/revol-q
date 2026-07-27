@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { Playfair_Display, Inter, Space_Grotesk, Barlow_Condensed, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
@@ -20,6 +20,29 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600'],
   variable: '--font-body',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-mono',
+  display: 'swap',
+})
+
+// Technical fonts for hero only
+const barlowCondensed = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  style: ['normal'],
+  variable: '--font-condensed',
+  display: 'swap',
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-utility',
   display: 'swap',
 })
 
@@ -58,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${spaceGrotesk.variable} ${barlowCondensed.variable} ${ibmPlexMono.variable}`}>
       <body
         style={{
           fontFamily: 'var(--font-body), system-ui, sans-serif',

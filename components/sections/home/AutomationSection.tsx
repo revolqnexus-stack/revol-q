@@ -116,8 +116,11 @@ export default function AutomationSection() {
               Automatic handling with human oversight whenever required.
             </p>
 
-            {/* Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginTop: '3rem' }}>
+            {/* Stats — desktop: 3-col grid / mobile: editorial rows */}
+            <div
+              className="auto-stats-desktop"
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginTop: '3rem' }}
+            >
               {stats.map((s) => (
                 <div key={s.label}>
                   <div
@@ -146,10 +149,20 @@ export default function AutomationSection() {
                 </div>
               ))}
             </div>
+
+            {/* Stats — mobile only: editorial rows */}
+            <dl className="auto-stats-mobile">
+              {stats.map((s) => (
+                <div key={s.label} className="auto-mobile-metric">
+                  <dt>{s.num}</dt>
+                  <dd>{s.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
-        {/* Right — CSS flow diagram */}
+        {/* Right — flow diagram with original boxes, font swapped */}
         <div
           ref={flowReveal.ref}
           style={{
@@ -164,7 +177,7 @@ export default function AutomationSection() {
             <div key={i}>
               <div className="flow-node">
                 <n.Icon size={14} color="var(--cobalt2)" strokeWidth={1.5} />
-                <span style={{ fontFamily: 'var(--font-body)' }}>{n.text}</span>
+                <span style={{ fontFamily: 'var(--font-mono)' }}>{n.text}</span>
               </div>
               {i < nodes.length - 1 && (
                 <div className="flow-connector">
@@ -178,7 +191,100 @@ export default function AutomationSection() {
 
       <style>{`
         @media (max-width: 900px) { .auto-grid { grid-template-columns: 1fr !important; gap: 3rem !important; } }
-        @media (max-width: 768px) { .auto-section { padding: 6rem 1.5rem !important; } }
+        @media (max-width: 768px) { .auto-section { padding: 5rem 20px 4rem !important; } }
+
+        /* ── Flow nodes — original box style, font swapped to Space Grotesk ── */
+        .flow-node {
+          background: var(--ink4);
+          border: 1px solid var(--line);
+          padding: 0.75rem 1.2rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.8rem;
+          font-family: var(--font-mono);
+          font-size: 0.65rem;
+          letter-spacing: 0.05em;
+          color: var(--fog);
+          width: 100%;
+          transition: border-color 300ms;
+        }
+        .flow-node:hover { border-color: var(--cobalt); }
+
+        .flow-connector {
+          position: relative;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .flow-connector::before {
+          content: '';
+          position: absolute;
+          top: 0; bottom: 0; left: 50%;
+          width: 1px;
+          background: var(--line);
+          transform: translateX(-50%);
+        }
+        .flow-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--cobalt);
+          position: relative;
+          animation: flowDown 2s linear infinite;
+          z-index: 1;
+        }
+        @keyframes flowDown {
+          0%   { transform: translateY(-16px); opacity: 0; }
+          20%  { opacity: 1; }
+          80%  { opacity: 1; }
+          100% { transform: translateY(16px); opacity: 0; }
+        }
+
+        /* ── Desktop metrics ── */
+        .auto-stats-desktop { display: grid; }
+        .auto-stats-mobile  { display: none; }
+
+        @media (max-width: 767px) {
+          .auto-stats-desktop { display: none !important; }
+          .auto-stats-mobile {
+            display: grid;
+            grid-template-columns: 1fr;
+            margin: 40px 0 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+          }
+          .auto-mobile-metric {
+            display: grid;
+            grid-template-columns: minmax(92px, 0.42fr) 1fr;
+            align-items: baseline;
+            gap: 22px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+          }
+          .auto-mobile-metric dt {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 10vw, 3rem);
+            line-height: 0.95;
+            color: #ffffff;
+            margin: 0;
+          }
+          .auto-mobile-metric dd {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1.35;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+          }
+          .flow-node {
+            font-size: 0.82rem !important;
+            padding: 0.85rem 1rem !important;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .flow-dot { animation: none !important; opacity: 0.4; }
+        }
       `}</style>
     </section>
   )

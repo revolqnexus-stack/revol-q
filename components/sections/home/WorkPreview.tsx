@@ -301,10 +301,17 @@ export default function WorkPreview() {
 
       <style>{`
         @media (max-width: 768px) {
-          .work-section { padding: 6rem 1.5rem 5rem !important; }
+          .work-section { padding: 5rem 20px 4rem !important; }
           .work-header { grid-template-columns: 1fr !important; }
-          .wp-row { grid-template-columns: 40px 1fr !important; }
-          .wp-row > *:last-child { grid-column: 2; margin-top: 1rem; }
+          .wp-row {
+            grid-template-columns: 32px 1fr !important;
+            grid-template-rows: auto auto;
+            gap: 1rem 14px !important;
+          }
+          .wp-row > *:last-child {
+            grid-column: 2;
+            margin-top: 0.75rem;
+          }
         }
       `}</style>
     </section>

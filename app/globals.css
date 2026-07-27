@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  /* Header height */
+  --header-height: 68px;
+  
   /* Core palette */
   --black:   #000000;
   --ink:     #080808;
@@ -29,16 +32,49 @@
   --glass:   rgba(255,255,255,0.025);
 }
 
+@media (min-width: 768px) {
+  :root {
+    --header-height: 84px;
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
+/* ── Global geometry — full-width shell ── */
+html,
+body {
+  width: 100%;
+  min-width: 320px;
+  max-width: none;
 }
 
+/* Next.js root and every shared ancestor must never constrain width */
+#__next,
+[data-nextjs-scroll-focus-boundary] {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+/* Full-width sections — background must reach both viewport edges */
+section,
+main,
+footer,
+header,
+nav {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+/* Belt-and-suspenders: wrapper also clips horizontal overflow */
 body {
   background: var(--black);
   color: var(--white);
@@ -373,7 +409,7 @@ body:not(.at-hero) .liquid-bg {
 /* ── Mobile: no scroll-snapping, no overscroll jank ── */
 @media (max-width: 767px) {
   html {
-    scroll-behavior: auto; /* native, no smooth-scroll jank on mobile */
+    scroll-behavior: auto;
     overscroll-behavior-y: none;
   }
 
@@ -391,13 +427,19 @@ body:not(.at-hero) .liquid-bg {
     cursor: auto !important;
   }
 
+  /* Header height token for mobile — matches 68px nav */
+  :root {
+    --header-height: 68px;
+  }
+
   /* Flow nodes: stack neatly, full width */
   .flow-node {
     font-size: 0.75rem !important;
     padding: 0.85rem 1rem !important;
   }
 
-  /* Prevent any horizontal overflow from section elements */
+  /* Ensure every section reaches both viewport edges */
+  .hero,
   .hero-outer,
   .services-section,
   .work-section,
@@ -405,8 +447,30 @@ body:not(.at-hero) .liquid-bg {
   .build-sequence-section,
   .pricing-section,
   .studio-section,
+  .cta-section,
+  .liquid-glass-section,
+  footer {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Global mobile padding for all content sections */
+  .services-section,
+  .work-section,
+  .auto-section,
+  .pricing-section,
+  .studio-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 5rem !important;
+    padding-bottom: 4rem !important;
+  }
+
   .cta-section {
-    overflow-x: hidden;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 
