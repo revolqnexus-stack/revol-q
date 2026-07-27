@@ -1,9 +1,10 @@
 import Preloader from '@/components/sections/home/Preloader'
-import LiquidBg from '@/components/sections/home/LiquidBg'
 import Hero from '@/components/sections/home/Hero'
-import ServicesIndex from '@/components/sections/home/ServicesIndex'
+import CredibilityRail from '@/components/sections/home/CredibilityRail'
 import WorkPreview from '@/components/sections/home/WorkPreview'
+import ServicesIndex from '@/components/sections/home/ServicesIndex'
 import AutomationSection from '@/components/sections/home/AutomationSection'
+import ProcessSection from '@/components/sections/home/ProcessSection'
 import PricingSection from '@/components/sections/home/PricingSection'
 import TeamSection from '@/components/sections/home/TeamSection'
 import CTASection from '@/components/sections/home/CTASection'
@@ -13,18 +14,21 @@ export default function HomePage() {
   return (
     <>
       <Preloader />
-      <LiquidBg />
       
       <LiquidBoundary className="bg-black">
         <Hero />
       </LiquidBoundary>
       
+      {/* Credibility rail after hero */}
+      <CredibilityRail />
+      
+      {/* Proof before features: Work before Systems */}
       <LiquidBoundary className="bg-zinc-950">
-        <ServicesIndex />
+        <WorkPreview />
       </LiquidBoundary>
       
       <LiquidBoundary className="bg-black">
-        <WorkPreview />
+        <ServicesIndex />
       </LiquidBoundary>
       
       <LiquidBoundary className="bg-zinc-950">
@@ -32,18 +36,21 @@ export default function HomePage() {
       </LiquidBoundary>
       
       <LiquidBoundary className="bg-black">
-        <PricingSection />
+        <ProcessSection />
       </LiquidBoundary>
       
       <LiquidBoundary className="bg-zinc-950">
-        <TeamSection />
+        <PricingSection />
       </LiquidBoundary>
       
       <LiquidBoundary className="bg-black">
+        <TeamSection />
+      </LiquidBoundary>
+      
+      <LiquidBoundary className="bg-zinc-950">
         <CTASection />
       </LiquidBoundary>
     </>
   )
 }
-
 

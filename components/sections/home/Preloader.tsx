@@ -80,7 +80,7 @@ export default function Preloader() {
             fontFamily: 'var(--font-body)',
           }}
         >
-          DIGITAL AGENCY · KERALA · INDIA
+          DIGITAL SYSTEMS STUDIO · INDIA
         </span>
       </div>
 

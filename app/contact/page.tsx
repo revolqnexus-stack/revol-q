@@ -19,7 +19,7 @@ export default function ContactPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginTop: '4rem', marginBottom: '4rem' }}>
             <a href="tel:+917995617374" style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--white)', textDecoration: 'none' }}>+91 79956 17374</a>
             <a href="tel:+917306085895" style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--white)', textDecoration: 'none' }}>+91 73060 85895</a>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--fog)', marginTop: '0.5rem' }}>Kerala, India<br />revolq.in</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--fog)', marginTop: '0.5rem' }}>India<br />revolq.in</span>
           </div>
 
           <a href="https://wa.me/917995617374" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', background: 'var(--cobalt)', color: 'var(--white)', padding: '1.2rem 3.5rem', fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background 300ms' }}
@@ -39,11 +39,11 @@ export default function ContactPage() {
               />
             ))}
 
-            <select style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--line)', color: 'var(--fog)', fontFamily: 'var(--font-body)', fontSize: '0.9rem', padding: '1rem 0', width: '100%', outline: 'none', appearance: 'none', cursor: 'pointer' }}
+            <select defaultValue="" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--line)', color: 'var(--fog)', fontFamily: 'var(--font-body)', fontSize: '0.9rem', padding: '1rem 0', width: '100%', outline: 'none', appearance: 'none', cursor: 'pointer' }}
               onFocus={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--cobalt)')}
               onBlur={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--line)')}
             >
-              <option value="" disabled selected>Service Needed</option>
+              <option value="" disabled>Service Needed</option>
               <option value="web">Digital Ecosystem Architecture</option>
               <option value="ai">Autonomous Operations</option>
               <option value="seo">Algorithmic Positioning</option>
@@ -54,11 +54,11 @@ export default function ContactPage() {
               <option value="unsure">Not sure yet</option>
             </select>
 
-            <select style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--line)', color: 'var(--fog)', fontFamily: 'var(--font-body)', fontSize: '0.9rem', padding: '1rem 0', width: '100%', outline: 'none', appearance: 'none', cursor: 'pointer' }}
+            <select defaultValue="" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--line)', color: 'var(--fog)', fontFamily: 'var(--font-body)', fontSize: '0.9rem', padding: '1rem 0', width: '100%', outline: 'none', appearance: 'none', cursor: 'pointer' }}
               onFocus={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--cobalt)')}
               onBlur={(e) => ((e.currentTarget as HTMLSelectElement).style.borderBottomColor = 'var(--line)')}
             >
-              <option value="" disabled selected>Budget</option>
+              <option value="" disabled>Budget</option>
               <option value="38">Under ₹38,000</option>
               <option value="75">₹38k–₹75k</option>
               <option value="150">₹75k–₹1,50,000</option>

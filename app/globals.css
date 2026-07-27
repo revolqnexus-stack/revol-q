@@ -12,9 +12,9 @@
 
   /* Text */
   --white:   #f8f8f8;
-  --fog:     rgba(255,255,255,0.55);
-  --dim:     rgba(255,255,255,0.25);
-  --xdim:    rgba(255,255,255,0.1);
+  --fog:     rgba(255,255,255,0.75);
+  --dim:     rgba(255,255,255,0.45);
+  --xdim:    rgba(255,255,255,0.15);
 
   /* Electric Brutalism accent */
   --cobalt:  #1A1AFF;
@@ -48,6 +48,10 @@ body {
   cursor: none;
 }
 
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
 /* ── Liquid Background ── */
 .liquid-bg {
   position: fixed;
@@ -57,8 +61,14 @@ body {
   overflow: hidden;
   filter: blur(40px) contrast(80);
   -webkit-filter: blur(40px) contrast(80);
-  opacity: 0.9;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+/* Show liquid background after hero */
+body:not(.at-hero) .liquid-bg {
+  opacity: 0.9;
 }
 
 .blob {
@@ -360,12 +370,74 @@ body {
   body { cursor: auto; }
 }
 
+/* ── Mobile: no scroll-snapping, no overscroll jank ── */
+@media (max-width: 767px) {
+  html {
+    scroll-behavior: auto; /* native, no smooth-scroll jank on mobile */
+    overscroll-behavior-y: none;
+  }
+
+  /* Kill any sticky pinning that leaks to mobile */
+  .process-track {
+    display: none !important;
+  }
+
+  /* Cursor: completely off on touch devices */
+  #revolq-cursor {
+    display: none !important;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+
+  /* Flow nodes: stack neatly, full width */
+  .flow-node {
+    font-size: 0.75rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  /* Prevent any horizontal overflow from section elements */
+  .hero-outer,
+  .services-section,
+  .work-section,
+  .auto-section,
+  .build-sequence-section,
+  .pricing-section,
+  .studio-section,
+  .cta-section {
+    overflow-x: hidden;
+  }
+}
+
 /* ── Reduce motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Show all reveal elements immediately */
+  [style*="opacity: 0"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Focus states for accessibility ── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+/* ── Touch targets ── */
+@media (hover: none) {
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 

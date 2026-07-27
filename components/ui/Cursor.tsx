@@ -16,6 +16,10 @@ export default function Cursor() {
     const mq = window.matchMedia('(pointer: fine)')
     if (!mq.matches) return
 
+    // Check for reduced motion preference
+    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (motionMq.matches) return
+
     let mouseX = -100
     let mouseY = -100
 
@@ -23,14 +27,21 @@ export default function Cursor() {
       mouseX = e.clientX
       mouseY = e.clientY
       
+      // Don't show cursor over text areas
+      const target = e.target as Element
+      if (target.tagName === 'P' || target.tagName === 'SPAN' || target.tagName === 'H1' || target.tagName === 'H2' || target.tagName === 'H3') {
+        el.style.opacity = '0'
+        return
+      }
+      
       gsap.to(el, {
-        x: mouseX - 8,
-        y: mouseY - 8,
-        duration: 0.1,
+        x: mouseX - 6,
+        y: mouseY - 6,
+        duration: 0.15,
         ease: 'power2.out',
         overwrite: 'auto'
       })
-      el.style.opacity = '1'
+      el.style.opacity = '0.7'
     }
 
     const onEnter = (e: MouseEvent) => {
@@ -42,10 +53,10 @@ export default function Cursor() {
         
         if (customText) {
           txt.innerText = customText
-          gsap.to(el, { scale: 4.5, duration: 0.3, ease: 'power3.out' })
-          gsap.to(txt, { opacity: 1, scale: 0.25, duration: 0.2 })
+          gsap.to(el, { scale: 2.5, duration: 0.25, ease: 'power3.out' })
+          gsap.to(txt, { opacity: 1, scale: 0.35, duration: 0.2 })
         } else {
-          gsap.to(el, { scale: 3, duration: 0.3, ease: 'power3.out' })
+          gsap.to(el, { scale: 1.8, duration: 0.25, ease: 'power3.out' })
           gsap.to(txt, { opacity: 0, duration: 0.2 })
         }
       }
@@ -54,7 +65,7 @@ export default function Cursor() {
     const onLeave = (e: MouseEvent) => {
       const t = e.target as Element
       if (t.closest('a, button, [data-cursor-text]')) {
-        gsap.to(el, { scale: 1, duration: 0.3, ease: 'power3.out' })
+        gsap.to(el, { scale: 1, duration: 0.25, ease: 'power3.out' })
         gsap.to(txt, { opacity: 0, duration: 0.2 })
       }
     }
@@ -80,8 +91,8 @@ export default function Cursor() {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '16px',
-        height: '16px',
+        width: '12px',
+        height: '12px',
         background: '#fff',
         borderRadius: '50%',
         pointerEvents: 'none',
@@ -97,7 +108,7 @@ export default function Cursor() {
         ref={textRef}
         style={{ 
           color: '#000', 
-          fontSize: '10px', 
+          fontSize: '9px', 
           fontWeight: 'bold', 
           opacity: 0, 
           letterSpacing: '0.05em',
@@ -107,4 +118,3 @@ export default function Cursor() {
     </div>
   )
 }
-

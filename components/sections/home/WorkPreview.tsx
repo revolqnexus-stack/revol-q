@@ -1,19 +1,208 @@
 'use client'
 
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { useMobileReveal } from '@/hooks/useMobileReveal'
+import { getHomepageFeatured, STATUS_LABELS, STATUS_COLORS } from '@/lib/workData'
 
-const metrics = [
-  { num: '464+', label: 'GOOGLE REVIEWS' },
-  { num: '4.9★', label: 'CLIENT RATING' },
-  { num: '124%', label: 'TRAFFIC GROWTH' },
-  { num: '3.2k', label: 'MONTHLY BOOKINGS' },
-]
+const featured = getHomepageFeatured()
+
+// Status pill
+function StatusPill({ status }: { status: string }) {
+  const color = STATUS_COLORS[status as keyof typeof STATUS_COLORS] ?? 'var(--dim)'
+  const label = STATUS_LABELS[status as keyof typeof STATUS_LABELS] ?? status.toUpperCase()
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px',
+        fontFamily: 'var(--font-body)',
+        fontSize: '0.52rem',
+        letterSpacing: '0.2em',
+        color,
+        textTransform: 'uppercase',
+        border: `1px solid ${color}44`,
+        padding: '0.3rem 0.7rem',
+        background: `${color}12`,
+      }}
+    >
+      {status === 'live' && (
+        <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: color, display: 'inline-block' }} />
+      )}
+      {label}
+    </span>
+  )
+}
+
+function PreviewRow({
+  project,
+  index,
+  isMobile,
+}: {
+  project: typeof featured[0]
+  index: number
+  isMobile: boolean
+}) {
+  const reveal = useMobileReveal({ enabled: isMobile })
+
+  return (
+    <div
+      ref={reveal.ref}
+      className="wp-row"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '48px 1fr auto',
+        gap: '2rem',
+        alignItems: 'start',
+        padding: '2.4rem 0',
+        borderTop: '1px solid var(--line)',
+        opacity: reveal.isVisible ? 1 : 0,
+        transform: reveal.isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 650ms cubic-bezier(0.16,1,0.3,1) ${index * 80}ms, transform 650ms cubic-bezier(0.16,1,0.3,1) ${index * 80}ms`,
+        cursor: 'default',
+      }}
+    >
+      {/* Number */}
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.58rem',
+          letterSpacing: '0.2em',
+          color: 'var(--dim)',
+          paddingTop: '0.2rem',
+        }}
+      >
+        {project.number}
+      </div>
+
+      {/* Middle — name + description */}
+      <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
+          <h3
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)',
+              fontWeight: 300,
+              color: 'var(--white)',
+              lineHeight: 1,
+              margin: 0,
+            }}
+          >
+            {project.name}
+          </h3>
+          <StatusPill status={project.status} />
+        </div>
+        <div
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.62rem',
+            letterSpacing: '0.15em',
+            color: 'var(--cobalt2)',
+            textTransform: 'uppercase',
+            marginBottom: '0.75rem',
+          }}
+        >
+          {project.categoryLabel}
+        </div>
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.85rem',
+            lineHeight: 1.7,
+            color: 'var(--fog)',
+            maxWidth: '580px',
+          }}
+        >
+          {project.shortDescription}
+        </p>
+      </div>
+
+      {/* CTA */}
+      <div style={{ paddingTop: '0.3rem' }}>
+        {project.status === 'live' && project.externalUrl ? (
+          <a
+            href={project.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="wp-link"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.6rem',
+              letterSpacing: '0.18em',
+              color: 'var(--cobalt2)',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+              minHeight: '44px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'gap 250ms cubic-bezier(0.16,1,0.3,1)',
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = '12px')}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = '6px')}
+          >
+            VIEW LIVE ↗
+          </a>
+        ) : project.status === 'private' ? (
+          <Link
+            href="/contact"
+            className="wp-link"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.6rem',
+              letterSpacing: '0.18em',
+              color: 'var(--cobalt2)',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+              minHeight: '44px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'gap 250ms cubic-bezier(0.16,1,0.3,1)',
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = '12px')}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = '6px')}
+          >
+            REQUEST WALKTHROUGH →
+          </Link>
+        ) : (
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.6rem',
+              letterSpacing: '0.18em',
+              color: 'var(--dim)',
+              textTransform: 'uppercase',
+            }}
+          >
+            IN BUILD
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export default function WorkPreview() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const eyebrowReveal = useMobileReveal({ enabled: isMobile })
+  const headingReveal = useMobileReveal({ enabled: isMobile })
+
   return (
     <section
       style={{
-        padding: '10rem 4rem',
+        padding: '10rem 4rem 8rem',
         position: 'relative',
         zIndex: 10,
         background: 'var(--ink2)',
@@ -21,304 +210,103 @@ export default function WorkPreview() {
       }}
       className="work-section"
     >
-      {/* Label + Headline */}
-      <div style={{ marginBottom: '4rem' }}>
-        <span className="label-tag">SELECTED WORK</span>
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.2rem, 4vw, 4.5rem)',
-            fontWeight: 300,
-            lineHeight: 1.0,
-            marginTop: '1rem',
-            color: 'var(--white)',
-          }}
-        >
-          The work.
-          <br />
-          <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '1.5px var(--white)' }}>
-            Built for real businesses.
-          </em>
-        </h2>
-      </div>
-
-      {/* Featured card — NIXTUDIO */}
-      <div className="work-card" style={{ background: 'var(--ink3)' }}>
-        {/* Image area */}
-        <div
-          style={{
-            height: '55vh',
-            overflow: 'hidden',
-            position: 'relative',
-            background: 'var(--ink4)',
-          }}
-        >
-          {/* Placeholder gradient image */}
-          <div
-            className="work-card-img-container"
-            style={{
-              width: '100%',
-              height: '100%',
-              overflow: 'hidden',
-              background: '#000',
-            }}
-          >
-            <img
-              src="/work/nixtudio.png"
-              alt="NIXTUDIO Mockup"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                filter: 'grayscale(1) brightness(0.6)',
-                transition: 'transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), filter 0.8s ease',
-              }}
-              className="project-img"
-            />
-          </div>
-
-          {/* Badge */}
-          <span
-            style={{
-              position: 'absolute',
-              top: '1.5rem',
-              left: '1.5rem',
-              border: '1px solid var(--line2)',
-              background: 'rgba(0,0,0,0.7)',
-              backdropFilter: 'blur(8px)',
-              padding: '0.4rem 1rem',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.56rem',
-              letterSpacing: '0.3em',
-              color: 'var(--fog)',
-              textTransform: 'uppercase',
-            }}
-          >
-            BRIDAL STUDIO · PALA, KERALA · 2025
-          </span>
-        </div>
-
-        {/* Content */}
-        <div
-          style={{
-            padding: '3rem 4rem',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '4rem',
-          }}
-          className="work-card-content"
-        >
-          {/* Left */}
-          <div>
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                fontWeight: 300,
-                color: 'var(--white)',
-                display: 'block',
-              }}
-            >
-              NIXTUDIO
-            </span>
-            <em
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.2rem, 2vw, 2rem)',
-                fontStyle: 'italic',
-                color: 'var(--cobalt2)',
-                display: 'block',
-                marginTop: '0.3rem',
-              }}
-            >
-              by Nikita Liby
-            </em>
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.88rem',
-                fontWeight: 200,
-                lineHeight: 1.9,
-                color: 'var(--fog)',
-                marginTop: '1.2rem',
-                maxWidth: '400px',
-              }}
-            >
-              Redefining the digital presence for Kerala&apos;s premier bridal studio.
-              Complete web, SEO, and AI automation system built from the ground up.
-            </p>
-            <a
-              href="https://nixtudio.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                marginTop: '2rem',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.72rem',
-                letterSpacing: '0.15em',
-                color: 'var(--cobalt2)',
-                textDecoration: 'none',
-                textTransform: 'uppercase',
-                transition: 'gap 300ms',
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '14px')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.gap = '8px')}
-            >
-              VIEW LIVE PROJECT →
-            </a>
-          </div>
-
-          {/* Right — metrics */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '2rem',
-              alignContent: 'start',
-            }}
-          >
-            {metrics.map((m) => (
-              <div key={m.label} style={{ borderTop: '1px solid var(--line)', paddingTop: '1.2rem' }}>
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.8rem, 3vw, 3rem)',
-                    fontWeight: 300,
-                    color: 'var(--white)',
-                    lineHeight: 1,
-                  }}
-                >
-                  {m.num}
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.6rem',
-                    color: 'var(--dim)',
-                    letterSpacing: '0.25em',
-                    marginTop: '0.4rem',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {m.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Second row — 2 coming soon cards */}
+      {/* Header */}
       <div
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1.5rem' }}
-        className="work-row2"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto',
+          alignItems: 'flex-end',
+          marginBottom: '3rem',
+          gap: '2rem',
+        }}
+        className="work-header"
       >
-        {[
-          { title: 'Holy Family Dental',  tag: 'DENTAL CLINIC · KOTTAYAM' },
-          { title: 'Honeys Bridal Studio', tag: 'BRIDAL STUDIO · KERALA' },
-        ].map((p) => (
+        <div>
           <div
-            key={p.title}
-            className="work-card"
-            style={{ background: 'var(--ink3)', cursor: 'default' }}
+            ref={eyebrowReveal.ref}
+            style={{
+              opacity: eyebrowReveal.isVisible ? 1 : 0,
+              transform: eyebrowReveal.isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1)',
+            }}
           >
-            <div
+            <span className="label-tag">SELECTED WORK</span>
+          </div>
+          <div
+            ref={headingReveal.ref}
+            style={{
+              opacity: headingReveal.isVisible ? 1 : 0,
+              transform: headingReveal.isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 650ms cubic-bezier(0.16,1,0.3,1) 70ms, transform 650ms cubic-bezier(0.16,1,0.3,1) 70ms',
+            }}
+          >
+            <h2
               style={{
-                height: '320px',
-                overflow: 'hidden',
-                background: 'var(--ink4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.2rem, 4vw, 4.5rem)',
+                fontWeight: 300,
+                lineHeight: 1.0,
+                marginTop: '1rem',
+                color: 'var(--white)',
               }}
             >
-              <div
-                className="work-card-img-container"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'hidden',
-                  background: '#000',
-                }}
-              >
-                <img
-                  src={p.title === 'Holy Family Dental' ? '/work/holy-family.png' : '/work/honeys.png'}
-                  alt={p.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    filter: 'grayscale(1) brightness(0.6)',
-                    transition: 'transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), filter 0.8s ease',
-                  }}
-                  className="project-img"
-                />
-              </div>
-            </div>
-            <div style={{ padding: '1.8rem' }}>
-              <span className="label-tag">{p.tag}</span>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.7rem' }}>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.8rem',
-                    fontWeight: 300,
-                    color: 'var(--white)',
-                  }}
-                >
-                  {p.title}
-                </h3>
-                {p.title === 'Holy Family Dental' || p.title === 'Honeys Bridal Studio' ? (
-                  <a
-                    href={p.title === 'Holy Family Dental' ? 'https://holy-family-dental-clinic.vercel.app/' : 'https://honeysbridal.vercel.app/'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      border: '1px solid var(--cobalt2)',
-                      color: 'var(--cobalt2)',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.55rem',
-                      letterSpacing: '0.2em',
-                      padding: '0.2rem 0.7rem',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none'
-                    }}
-                  >
-                    VIEW LIVE PROJECT →
-                  </a>
-                ) : (
-                  <span
-                    style={{
-                      border: '1px solid var(--dim)',
-                      color: 'var(--dim)',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.55rem',
-                      letterSpacing: '0.2em',
-                      padding: '0.2rem 0.7rem',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    COMING SOON
-                  </span>
-                )}
-              </div>
-            </div>
+              Proof before
+              <br />
+              <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '1.5px var(--white)' }}>
+                everything else.
+              </em>
+            </h2>
           </div>
+        </div>
+      </div>
+
+      {/* Three flagship rows */}
+      <div>
+        {featured.map((project, i) => (
+          <PreviewRow key={project.slug} project={project} index={i} isMobile={isMobile} />
         ))}
+        {/* Final rule */}
+        <div style={{ borderTop: '1px solid var(--line)' }} />
+      </div>
+
+      {/* Explore all CTA */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginTop: '2rem',
+        }}
+      >
+        <Link
+          href="/work"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.68rem',
+            letterSpacing: '0.2em',
+            color: 'var(--cobalt2)',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            minHeight: '44px',
+            transition: 'gap 250ms cubic-bezier(0.16,1,0.3,1)',
+          }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = '14px')}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = '8px')}
+        >
+          EXPLORE ALL WORK ↗
+        </Link>
       </div>
 
       <style>{`
-        .work-card:hover .project-img {
-          transform: scale(1.08);
-          filter: grayscale(0) brightness(0.9);
+        @media (max-width: 768px) {
+          .work-section { padding: 6rem 1.5rem 5rem !important; }
+          .work-header { grid-template-columns: 1fr !important; }
+          .wp-row { grid-template-columns: 40px 1fr !important; }
+          .wp-row > *:last-child { grid-column: 2; margin-top: 1rem; }
         }
-        @media (max-width: 900px) { .work-card-content { grid-template-columns: 1fr !important; gap: 2rem !important; }} 
-        @media (max-width: 768px) { .work-section { padding: 6rem 1.5rem !important; } .work-row2 { grid-template-columns: 1fr !important; } .work-card-content { padding: 2rem 1.5rem !important; } }
       `}</style>
     </section>
   )
 }
-

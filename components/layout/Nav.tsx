@@ -26,7 +26,29 @@ export default function Nav() {
   }, [])
 
   // Close mobile nav on route change
-  useEffect(() => { setMobileOpen(false) }, [pathname])
+  useEffect(() => {
+    setMobileOpen(false)
+    // Lock scroll when mobile menu is open
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    // Close on Escape key
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [pathname, mobileOpen])
 
   return (
     <>
@@ -64,38 +86,63 @@ export default function Nav() {
           REVOLQ
         </Link>
 
-        {/* Center links — desktop */}
+        {/* Center links — desktop, shared liquid-glass rail */}
         <div
           className="nav-center"
-          style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center' }}
         >
-          {navLinks.map((l) => {
-            const active = pathname.startsWith(l.href)
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.25em',
-                  color: active ? 'var(--white)' : 'var(--fog)',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                  transition: 'color 200ms',
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--white)')}
-                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.color = active ? 'var(--white)' : 'var(--fog)')
-                }
-              >
-                {l.label}
-              </Link>
-            )
-          })}
+          <div
+            className="nav-rail"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+              padding: '0.45rem 0.6rem',
+              background: 'linear-gradient(160deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 50%, rgba(4,8,20,0.28) 100%)',
+              backdropFilter: 'blur(14px) saturate(130%)',
+              WebkitBackdropFilter: 'blur(14px) saturate(130%)',
+              border: '1px solid rgba(255,255,255,0.075)',
+              borderTop: '1px solid rgba(255,255,255,0.11)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.065), inset 0 -1px 0 rgba(255,255,255,0.02)',
+              borderRadius: '100px',
+            }}
+          >
+            {navLinks.map((l) => {
+              const active = pathname.startsWith(l.href)
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`nav-rail-link${active ? ' nav-rail-link--active' : ''}`}
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.7rem',
+                    letterSpacing: '0.25em',
+                    color: active ? 'var(--white)' : 'var(--fog)',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
+                    padding: '0.4rem 1.1rem',
+                    borderRadius: '100px',
+                    position: 'relative',
+                    transition: 'color 240ms cubic-bezier(0.16, 1, 0.3, 1), background 240ms cubic-bezier(0.16, 1, 0.3, 1), transform 240ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1)',
+                    background: active
+                      ? 'linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.028) 60%, rgba(30,60,160,0.10) 100%)'
+                      : 'transparent',
+                    boxShadow: active
+                      ? 'inset 0 1px 0 rgba(255,255,255,0.10), 0 1px 6px rgba(0,0,0,0.18)'
+                      : 'none',
+                    display: 'inline-block',
+                  }}
+                >
+                  {l.label}
+                </Link>
+              )
+            })}
+          </div>
         </div>
 
-        {/* Right CTA */}
+        {/* Right CTA — desktop only */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <GlassButton
             variant="subtle"
@@ -111,16 +158,23 @@ export default function Nav() {
             LET&apos;S TALK
           </GlassButton>
 
+          {/* Hamburger — mobile only */}
           <button
             onClick={() => setMobileOpen((open) => !open)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            className="mobile-menu-btn"
             style={{
               background: 'none',
               border: 'none',
               color: 'var(--white)',
-              cursor: 'none',
-              display: 'flex',
+              cursor: 'pointer',
+              display: 'none',
               alignItems: 'center',
+              padding: '0.5rem',
+              minWidth: '44px',
+              minHeight: '44px',
+              justifyContent: 'center',
             }}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -172,7 +226,7 @@ export default function Nav() {
 
         <div style={{ marginTop: '2rem' }}>
           <p style={{ fontSize: '0.72rem', letterSpacing: '0.2em', color: 'var(--dim)' }}>
-            Kerala, India · revolq.in
+            India · revolq.in
           </p>
         </div>
       </div>
@@ -181,9 +235,47 @@ export default function Nav() {
       <style>{`
         .nav-cta { display: inline-block !important; }
         .nav-center { display: flex !important; }
+        .mobile-menu-btn { display: none !important; }
+
+        /* Rail link push interaction */
+        .nav-rail-link:hover,
+        .nav-rail-link:focus-visible {
+          color: var(--white) !important;
+          transform: translateY(-1px);
+          background: linear-gradient(160deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.022) 60%, rgba(30,60,160,0.08) 100%) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 2px 8px rgba(0,0,0,0.20) !important;
+        }
+        .nav-rail-link:active {
+          transform: translateY(0px) scale(0.985);
+          transition-duration: 80ms !important;
+        }
+        .nav-rail-link--active {
+          color: var(--white) !important;
+        }
+        .nav-rail-link--active::after {
+          content: '';
+          position: absolute;
+          bottom: 0.28rem;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 18px;
+          height: 1px;
+          background: rgba(80, 130, 255, 0.45);
+          border-radius: 1px;
+        }
+        .nav-rail-link:focus-visible {
+          outline: none;
+          box-shadow: 0 0 0 1.5px rgba(80,130,255,0.5), inset 0 1px 0 rgba(255,255,255,0.09) !important;
+        }
+
+        @supports not (backdrop-filter: blur(1px)) {
+          .nav-rail { background: rgba(8, 12, 28, 0.92) !important; }
+        }
+
         @media (max-width: 768px) {
           .nav-cta { display: none !important; }
           .nav-center { display: none !important; }
+          .mobile-menu-btn { display: flex !important; }
           nav { padding: 1.4rem 1.5rem !important; }
         }
       `}</style>

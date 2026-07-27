@@ -47,7 +47,7 @@ export default function SeoGbpPage() {
           <div>
             {/* Case study callout */}
             <div style={{ background: 'var(--ink3)', borderLeft: '3px solid var(--cobalt)', padding: '2rem 2.5rem', marginBottom: '3rem' }}>
-              <div className="label-tag">NIXTUDIO — PALA, KERALA</div>
+              <div className="label-tag">NIXTUDIO — INDIA</div>
               <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontStyle: 'italic', color: 'var(--white)', lineHeight: 1.4, marginTop: '1rem' }}>
                 From zero digital presence to targeting #1 in local bridal makeup search — with 464 reviews at 4.9★.
               </p>

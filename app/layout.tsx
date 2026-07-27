@@ -5,6 +5,8 @@ import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import Cursor from '@/components/ui/Cursor'
 import ProgressBar from '@/components/ui/ProgressBar'
+import ScrollProvider from '@/components/providers/ScrollProvider'
+import HomeLiquidBg from '@/components/sections/home/HomeLiquidBg'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -62,7 +64,10 @@ export default function RootLayout({
           fontFamily: 'var(--font-body), system-ui, sans-serif',
           fontWeight: 200,
         }}
+        className="at-hero"
       >
+        <ScrollProvider />
+        <HomeLiquidBg />
         <Cursor />
         <ProgressBar />
         <Nav />

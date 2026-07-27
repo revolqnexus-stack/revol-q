@@ -1,13 +1,13 @@
 import Link from 'next/link'
+import Aurora from '@/components/ui/Aurora'
 
 const navLinks = ['Work', 'Services', 'About', 'Contact']
 const services = [
-  { name: 'Digital Ecosystem Architecture', href: '/services/web-development' },
-  { name: 'Algorithmic Positioning', href: '/services/seo-gbp' },
-  { name: 'Autonomous Operations', href: '/services/ai-automation' },
-  { name: 'Brand Brutalism', href: '/services/brand-strategy' },
-  { name: 'Conversion Telemetry', href: '/contact' },
-  { name: 'Continuous Iteration', href: '/services/retainer' },
+  { name: 'Web Development', href: '/services/web-development' },
+  { name: 'Local Search & SEO', href: '/services/seo-gbp' },
+  { name: 'AI Automation', href: '/services/ai-automation' },
+  { name: 'Brand Strategy', href: '/services/brand-strategy' },
+  { name: 'Ongoing Support', href: '/services/retainer' },
 ]
 
 export default function Footer() {
@@ -21,6 +21,25 @@ export default function Footer() {
         overflow: 'hidden',
       }}
     >
+      {/* Aurora background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          opacity: 0.45,
+          pointerEvents: 'none',
+        }}
+        aria-hidden="true"
+      >
+        <Aurora
+          colorStops={['#f8f8f8', '#3e16bd', '#3006dd']}
+          blend={0.57}
+          amplitude={1.0}
+          speed={1}
+        />
+      </div>
+
       {/* Ghost text */}
       <span
         className="ghost-text"
@@ -56,10 +75,10 @@ export default function Footer() {
             REVOLQ
           </span>
           <p style={{ fontSize: '0.85rem', color: 'var(--fog)', lineHeight: 1.9, maxWidth: '220px' }}>
-            We build digital systems that work while you sleep.
+            Websites, products and operating systems.
           </p>
           <p style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: 'var(--dim)' }}>
-            Kerala, India · 2025
+          India · 2025
           </p>
         </div>
 
@@ -123,7 +142,7 @@ export default function Footer() {
             >
               +91 73060 85895
             </a>
-            <span style={{ fontSize: '0.85rem', color: 'var(--fog)' }}>Kerala, India</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--fog)' }}>India</span>
             <a
               href="https://wa.me/917995617374"
               target="_blank"
@@ -164,7 +183,7 @@ export default function Footer() {
           © 2026 REVOL-Q. All rights reserved.
         </span>
         <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--dim)' }}>
-          Designed &amp; built by REVOLQ
+          revolq.in
         </span>
       </div>
 

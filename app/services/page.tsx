@@ -13,7 +13,13 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main style={{ paddingTop: '10rem', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
+    <main style={{
+      paddingTop: '10rem',
+      minHeight: '100vh',
+      position: 'relative',
+      zIndex: 10,
+      background: 'linear-gradient(160deg,#00002E 0%,#000019 24%,#000000 62%,#000000 100%)',
+    }}>
       <div style={{ padding: '0 4rem 8rem' }} className="services-page-inner">
         {/* Hero */}
         <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '4rem', marginBottom: '4rem' }}>
