@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import projects, {
@@ -523,6 +523,8 @@ function WorkPageInner() {
   const [activeFilter, setActiveFilter] = useState<WorkCategory | 'all'>(initialCat)
   const [activeProject, setActiveProject] = useState<WorkProject | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
+  const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -530,6 +532,20 @@ function WorkPageInner() {
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
+
+  // Show preview only when scrolled past filters into the project list
+  useEffect(() => {
+    if (isMobile) return
+    const handleScroll = () => {
+      if (!listRef.current) return
+      const rect = listRef.current.getBoundingClientRect()
+      // Show when list top is above middle of viewport (scrolled into it)
+      setShowPreview(rect.top < window.innerHeight / 2)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isMobile])
 
   const all = getArchiveProjects()
   const filtered = activeFilter === 'all' ? all : all.filter((p) => p.category === activeFilter)
@@ -551,19 +567,29 @@ function WorkPageInner() {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        // Pick the entry closest to viewport center
+        let best: Element | null = null
+        let bestDist = Infinity
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
-            const slug = entry.target.getAttribute('data-slug')
-            const project = sorted.find((p) => p.slug === slug)
-            if (project && project.slug !== activeProject?.slug) {
-              setActiveProject(project)
+          if (entry.isIntersecting) {
+            const rect = entry.boundingClientRect
+            const center = rect.top + rect.height / 2
+            const dist = Math.abs(center - window.innerHeight / 2)
+            if (dist < bestDist) {
+              bestDist = dist
+              best = entry.target
             }
           }
         })
+        if (best) {
+          const slug = (best as Element).getAttribute('data-slug')
+          const project = sorted.find((p) => p.slug === slug)
+          if (project) setActiveProject(project)
+        }
       },
       {
-        threshold: [0, 0.4, 0.5, 0.6, 1],
-        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0,
+        rootMargin: '-30% 0px -30% 0px',
       }
     )
 
@@ -571,7 +597,7 @@ function WorkPageInner() {
     rows.forEach((row) => observer.observe(row))
 
     return () => observer.disconnect()
-  }, [sorted, isMobile, activeProject?.slug])
+  }, [sorted, isMobile])
 
   const handleFilter = (val: WorkCategory | 'all') => {
     setActiveFilter(val)
@@ -711,33 +737,40 @@ function WorkPageInner() {
 
       {/* ── DESKTOP: EDITORIAL INDEX + EXHIBITION WALL ────────────────────── */}
       {!isMobile && (
-        <>
-          {/* Fixed exhibition wall — never moves */}
-          <div style={{
-            position: 'fixed',
-            top: '120px',
-            right: '4rem',
-            width: '340px',
-            zIndex: 5,
-            pointerEvents: 'none',
-          }}>
-            <ExhibitionPreview project={activeProject} />
-          </div>
-
-          {/* Left list — normal page scroll, padded right to leave room for fixed panel */}
-          <div
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 360px',
+            gap: '4rem',
+            padding: '4rem 4rem 0',
+            height: 'calc(100vh - var(--header-height) - 4rem)',
+            overflow: 'hidden',
+          }}
+          className="work-desktop"
+        >
+          {/* LEFT — Project index with its own scroll */}
+          <div 
+            ref={listRef}
+            className="work-list-scroll"
             style={{
-              padding: '0 calc(360px + 6rem) 8rem 4rem',
-              marginTop: '4rem',
+              overflowY: 'auto',
+              paddingBottom: '4rem',
+              paddingRight: '1rem',
             }}
-            className="work-desktop"
           >
-            {sorted.map((p) => (
-              <ProjectRow
-                key={p.slug}
-                project={p}
-                isActive={activeProject?.slug === p.slug}
-              />
+            {sorted.map((p, idx) => (
+              <div key={p.slug}>
+                {activeFilter === 'all' && p.category === 'lab' && sorted[idx - 1]?.category !== 'lab' && (
+                  <div style={{ padding: '2rem 0 1rem', borderTop: '1px solid var(--line)', marginTop: '3rem' }}>
+                    <span className="label-tag">REVOLQ LABS — INTERNAL & CONCEPT</span>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--dim)', lineHeight: 1.6, maxWidth: '500px', marginTop: '0.8rem' }}>
+                      Internal tools, experimental systems and concept products built inside REVOLQ.
+                      Not commissioned client work.
+                    </p>
+                  </div>
+                )}
+                <ProjectRow project={p} isActive={activeProject?.slug === p.slug} />
+              </div>
             ))}
             {sorted.length === 0 && (
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--dim)', padding: '3rem 0' }}>
@@ -746,14 +779,40 @@ function WorkPageInner() {
             )}
             <div style={{ borderTop: '1px solid var(--line)' }} />
           </div>
-        </>
+
+          {/* RIGHT — Exhibition wall with its own scroll, vertically centered */}
+          <div 
+            className="work-preview-scroll"
+            style={{
+              overflowY: 'auto',
+              paddingBottom: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div style={{ margin: 'auto 0', width: '100%' }}>
+              <ExhibitionPreview project={activeProject} />
+            </div>
+          </div>
+        </div>
       )}
 
       {/* ── MOBILE: Stacked entries ───────────────────────────────────────── */}
       {isMobile && (
         <div style={{ padding: '2rem 1.5rem 6rem' }}>
-          {sorted.map((p) => (
-            <MobileEntry key={p.slug} project={p} />
+          {sorted.map((p, idx) => (
+            <div key={p.slug}>
+              {activeFilter === 'all' && p.category === 'lab' && sorted[idx - 1]?.category !== 'lab' && (
+                <div style={{ padding: '2rem 0 0', borderTop: '1px solid var(--line)', marginTop: '2rem' }}>
+                  <span className="label-tag">REVOLQ LABS — INTERNAL & CONCEPT</span>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--dim)', lineHeight: 1.6, marginTop: '0.8rem' }}>
+                    Internal tools, experimental systems and concept products built inside REVOLQ.
+                    Not commissioned client work.
+                  </p>
+                </div>
+              )}
+              <MobileEntry project={p} />
+            </div>
           ))}
           {sorted.length === 0 && (
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--dim)', padding: '2rem 0' }}>
@@ -761,19 +820,6 @@ function WorkPageInner() {
             </p>
           )}
           <div style={{ borderTop: '1px solid var(--line)' }} />
-        </div>
-      )}
-
-      {/* ── LABS DIVIDER (visible in "all" view only) ─────────────────────── */}
-      {activeFilter === 'all' && !isMobile && sorted.some((p) => p.category === 'lab') && (
-        <div style={{ padding: '0 4rem', marginTop: '-6rem', marginBottom: '4rem' }}>
-          <div style={{ borderTop: '1px solid var(--line)', paddingTop: '2rem' }}>
-            <span className="label-tag">REVOLQ LABS — INTERNAL & CONCEPT</span>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--dim)', lineHeight: 1.6, maxWidth: '500px', marginTop: '0.8rem' }}>
-              Internal tools, experimental systems and concept products built inside REVOLQ.
-              Not commissioned client work.
-            </p>
-          </div>
         </div>
       )}
 
@@ -887,6 +933,35 @@ function WorkPageInner() {
           .work-hero { padding: 3rem 1.5rem 4rem !important; }
           .work-filters { padding: 0 1.5rem !important; }
           .work-cta { padding: 6rem 1.5rem !important; }
+        }
+
+        .work-list-scroll,
+        .work-preview-scroll {
+          scrollbar-width: thin;
+          scrollbar-color: var(--line2) transparent;
+        }
+        .work-list-scroll::-webkit-scrollbar,
+        .work-preview-scroll::-webkit-scrollbar {
+          width: 4px;
+        }
+        .work-list-scroll::-webkit-scrollbar-track,
+        .work-preview-scroll::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .work-list-scroll::-webkit-scrollbar-thumb,
+        .work-preview-scroll::-webkit-scrollbar-thumb {
+          background: var(--line2);
+          border-radius: 2px;
+        }
+        .work-list-scroll::-webkit-scrollbar-thumb:hover,
+        .work-preview-scroll::-webkit-scrollbar-thumb:hover {
+          background: var(--cobalt2);
+        }
+        .work-list-scroll::-webkit-scrollbar-button,
+        .work-preview-scroll::-webkit-scrollbar-button {
+          display: none;
+          height: 0;
+          width: 0;
         }
       `}</style>
     </main>
