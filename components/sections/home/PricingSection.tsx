@@ -162,13 +162,42 @@ export default function PricingSection() {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px',
+          gap: '48px',
           opacity: gridReveal.isVisible ? 1 : 0,
           transform: gridReveal.isVisible ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) 210ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 210ms',
+          position: 'relative',
         }}
         className="pricing-grid"
       >
+        {/* Vertical electric-blue dividers */}
+        <div
+          className="pricing-divider"
+          style={{
+            position: 'absolute',
+            left: 'calc(33.333% + 24px)',
+            top: '10%',
+            bottom: '10%',
+            width: '1px',
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(70, 90, 255, 0.7) 50%, transparent 100%)',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }}
+        />
+        <div
+          className="pricing-divider"
+          style={{
+            position: 'absolute',
+            left: 'calc(66.666% + 24px)',
+            top: '10%',
+            bottom: '10%',
+            width: '1px',
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(70, 90, 255, 0.7) 50%, transparent 100%)',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }}
+        />
+
         {engagementModels.map((model, i) => (
           <div
             key={model.number}
@@ -179,21 +208,18 @@ export default function PricingSection() {
               flexDirection: 'column',
               position: 'relative',
               borderRadius: '2px',
-              /* Glass surface */
               background: model.recommended
-                ? 'linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 18%, rgba(9,14,28,0.22) 100%)'
-                : 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 18%, rgba(9,14,28,0.14) 100%)',
-              backdropFilter: 'blur(14px) saturate(130%)',
-              WebkitBackdropFilter: 'blur(14px) saturate(130%)',
+                ? 'linear-gradient(160deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.012) 60%, rgba(30,60,160,0.08) 100%)'
+                : 'linear-gradient(160deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.008) 60%, rgba(4,8,20,0.18) 100%)',
+              backdropFilter: 'blur(12px)',
               border: model.recommended
-                ? '1px solid rgba(255,255,255,0.18)'
-                : '1px solid rgba(255,255,255,0.09)',
-              borderTop: model.recommended
-                ? '2px solid var(--cobalt)'
-                : '1px solid rgba(255,255,255,0.09)',
+                ? '1px solid rgba(70, 90, 255, 0.25)'
+                : '1px solid rgba(255,255,255,0.06)',
               boxShadow: model.recommended
-                ? '0 16px 40px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.13), inset 0 -1px 0 rgba(255,255,255,0.04)'
-                : '0 8px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -1px 0 rgba(255,255,255,0.02)',
+                ? '0 0 32px rgba(48, 75, 255, 0.12), inset 0 1px 0 rgba(255,255,255,0.08)'
+                : 'inset 0 1px 0 rgba(255,255,255,0.04)',
+              transform: model.recommended ? 'translateY(-24px)' : 'translateY(0)',
+              transition: 'all 320ms cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
             {/* Recommended label — glass chip */}
@@ -334,45 +360,37 @@ export default function PricingSection() {
                 width: '100%',
                 padding: '1rem 1.5rem',
                 background: model.recommended
-                  ? 'linear-gradient(135deg, rgba(26,26,255,0.85) 0%, rgba(47,73,255,0.75) 100%)'
-                  : 'rgba(255,255,255,0.04)',
+                  ? 'var(--cobalt)'
+                  : 'transparent',
                 border: model.recommended
-                  ? '1px solid rgba(51,51,255,0.6)'
-                  : '1px solid rgba(255,255,255,0.12)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
+                  ? '1px solid var(--cobalt)'
+                  : '1px solid var(--border-default)',
                 color: 'var(--white)',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.62rem',
-                letterSpacing: '0.2em',
+                fontFamily: 'var(--font-utility)',
+                fontSize: '10px',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 cursor: 'pointer',
                 transition: 'background 260ms cubic-bezier(0.16,1,0.3,1), border-color 260ms, box-shadow 260ms, transform 260ms',
                 minHeight: '52px',
-                borderRadius: '1px',
-                boxShadow: model.recommended
-                  ? '0 4px 16px rgba(26,26,255,0.25), inset 0 1px 0 rgba(255,255,255,0.12)'
-                  : 'inset 0 1px 0 rgba(255,255,255,0.06)',
+                borderRadius: '0',
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget
+                el.style.transform = 'translateY(-1px)'
                 if (model.recommended) {
-                  el.style.boxShadow = '0 6px 24px rgba(26,26,255,0.38), inset 0 1px 0 rgba(255,255,255,0.16)'
-                  el.style.transform = 'translateY(-1px)'
+                  el.style.background = 'var(--cobalt2)'
                 } else {
-                  el.style.background = 'rgba(255,255,255,0.08)'
-                  el.style.borderColor = 'rgba(255,255,255,0.22)'
-                  el.style.transform = 'translateY(-1px)'
+                  el.style.borderColor = 'var(--border-strong)'
                 }
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget
                 el.style.transform = 'translateY(0)'
                 if (model.recommended) {
-                  el.style.boxShadow = '0 4px 16px rgba(26,26,255,0.25), inset 0 1px 0 rgba(255,255,255,0.12)'
+                  el.style.background = 'var(--cobalt)'
                 } else {
-                  el.style.background = 'rgba(255,255,255,0.04)'
-                  el.style.borderColor = 'rgba(255,255,255,0.12)'
+                  el.style.borderColor = 'var(--border-default)'
                 }
               }}
             >
@@ -404,53 +422,21 @@ export default function PricingSection() {
       </div>
 
       <style>{`
-        /* Panel hover — strengthen glass edge + lift */
-        .pricing-panel {
-          transition: box-shadow 280ms cubic-bezier(0.16,1,0.3,1),
-                      border-color 280ms cubic-bezier(0.16,1,0.3,1),
-                      transform 280ms cubic-bezier(0.16,1,0.3,1);
-        }
-        .pricing-panel:hover {
-          transform: translateY(-2px);
-        }
-        .pricing-panel--subtle:hover {
-          border-color: rgba(255,255,255,0.18) !important;
-          box-shadow: 0 14px 36px rgba(0,0,0,0.26),
-                      inset 0 1px 0 rgba(255,255,255,0.12),
-                      inset 0 -1px 0 rgba(255,255,255,0.04) !important;
-        }
-        .pricing-panel--strong:hover {
-          border-color: rgba(51,51,255,0.55) !important;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.36),
-                      0 0 0 1px rgba(51,51,255,0.12),
-                      inset 0 1px 0 rgba(255,255,255,0.18),
-                      inset 0 -1px 0 rgba(255,255,255,0.05) !important;
-        }
-
-        /* Fallback for browsers without backdrop-filter */
-        @supports not (backdrop-filter: blur(1px)) {
-          .pricing-panel--strong {
-            background: rgba(18, 22, 46, 0.92) !important;
-          }
-          .pricing-panel--subtle {
-            background: rgba(14, 17, 32, 0.88) !important;
-          }
-        }
-
         @media (max-width: 900px) {
           .pricing-grid {
             grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
+            gap: 2rem !important;
+          }
+          .pricing-divider {
+            display: none !important;
+          }
+          .pricing-panel {
+            transform: translateY(0) !important;
           }
         }
         @media (max-width: 768px) {
           .pricing-section { padding: 6rem 1.5rem 5rem !important; }
           .pricing-header { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
-          /* Lighter glass on mobile for performance */
-          .pricing-panel {
-            backdrop-filter: blur(8px) saturate(120%) !important;
-            -webkit-backdrop-filter: blur(8px) saturate(120%) !important;
-          }
         }
       `}</style>
     </section>

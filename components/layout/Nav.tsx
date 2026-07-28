@@ -34,6 +34,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mounted, setMounted]       = useState(false)
+  const [showNav, setShowNav]       = useState(false)
   const pathname = usePathname()
   const router   = useRouter()
   const btnRef     = useRef<HTMLButtonElement>(null)
@@ -50,6 +51,20 @@ export default function Nav() {
 
   // Portal requires document — only render after mount
   useEffect(() => { setMounted(true) }, [])
+  
+  // Hide nav during preloader
+  useEffect(() => {
+    // Check if preloader has been shown
+    const hasSeenPreloader = typeof window !== 'undefined' && sessionStorage.getItem('revolq_v')
+    
+    if (hasSeenPreloader) {
+      setShowNav(true)
+    } else {
+      // Show nav after preloader animation (3.8s)
+      const timer = setTimeout(() => setShowNav(true), 3800)
+      return () => clearTimeout(timer)
+    }
+  }, [])
 
   // Close on route change
   useEffect(() => { setMobileOpen(false) }, [pathname])
@@ -253,6 +268,9 @@ export default function Nav() {
           WebkitBackdropFilter: 'blur(10px)',
           borderBottom: '1px solid rgba(255,255,255,0.08)',
           boxSizing: 'border-box',
+          opacity: showNav ? 1 : 0,
+          pointerEvents: showNav ? 'auto' : 'none',
+          transition: 'opacity 400ms ease',
         }}
         className="site-header"
       >

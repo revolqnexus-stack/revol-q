@@ -13,33 +13,57 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main style={{
-      paddingTop: '10rem',
+    <main className="light-page-bg" style={{
+      paddingTop: 'var(--header-height)',
       minHeight: '100vh',
       position: 'relative',
       zIndex: 10,
-      background: 'linear-gradient(160deg,#00002E 0%,#000019 24%,#000000 62%,#000000 100%)',
     }}>
       <div style={{ padding: '0 4rem 8rem' }} className="services-page-inner">
         {/* Hero */}
-        <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '4rem', marginBottom: '4rem' }}>
-          <span className="label-tag">WHAT WE DO</span>
-          <h1
+        <div style={{ borderBottom: '1px solid var(--line)', paddingBottom: '4rem', marginBottom: '4rem', position: 'relative', overflow: 'hidden' }}>
+          {/* Background video */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(3rem, 7vw, 8rem)',
-              fontWeight: 300,
-              lineHeight: 0.9,
-              marginTop: '1.2rem',
-              color: 'var(--white)',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              zIndex: 0,
+              opacity: 0.4,
             }}
           >
-            Every service.
-            <br />
-            <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>
-              Carefully delivered.
-            </em>
-          </h1>
+            <source src="/hero video/services.mp4" type="video/mp4" />
+          </video>
+          
+          {/* Content */}
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <span className="label-tag">WHAT WE DO</span>
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3rem, 7vw, 8rem)',
+                fontWeight: 300,
+                lineHeight: 0.9,
+                marginTop: '1.2rem',
+                color: 'var(--white)',
+              }}
+            >
+              Every service.
+              <br />
+              <em style={{ fontStyle: 'italic', color: 'transparent', WebkitTextStroke: '2px var(--white)' }}>
+                Carefully delivered.
+              </em>
+            </h1>
+          </div>
         </div>
 
         {/* Service detail rows */}

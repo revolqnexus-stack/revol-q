@@ -7,13 +7,13 @@ const founders = [
   {
     name: 'Eathen Baby',
     role: 'FOUNDER',
-    img: '/team/eathen.png',
+    img: '/team/eathen.jpeg',
     position: 'center top',
   },
   {
     name: 'Ajmal Mullapati',
     role: 'FOUNDER',
-    img: '/team/ajmal.png',
+    img: '/team/ajmal.jpeg',
     position: 'center top',
   },
 ]
@@ -72,12 +72,6 @@ function FounderCard({
         style={{
           marginTop: '0',
           padding: '1.4rem 1.6rem 1.6rem',
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 20%, rgba(9,14,28,0.18) 100%)',
-          backdropFilter: 'blur(14px) saturate(130%)',
-          WebkitBackdropFilter: 'blur(14px) saturate(130%)',
-          border: '1px solid rgba(255,255,255,0.10)',
-          borderTop: '1px solid rgba(255,255,255,0.14)',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.09), inset 0 -1px 0 rgba(255,255,255,0.03)',
           borderRadius: '0 0 2px 2px',
           opacity: captionReveal.isVisible ? 1 : 0,
           transform: captionReveal.isVisible ? 'translateY(0)' : 'translateY(16px)',
@@ -198,12 +192,6 @@ export default function TeamSection() {
           className="studio-statement-glass"
           style={{
             padding: '1.5rem 1.75rem',
-            background: 'linear-gradient(160deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 40%, rgba(9,14,28,0.14) 100%)',
-            backdropFilter: 'blur(12px) saturate(125%)',
-            WebkitBackdropFilter: 'blur(12px) saturate(125%)',
-            border: '1px solid rgba(255,255,255,0.085)',
-            borderTop: '1px solid rgba(255,255,255,0.13)',
-            boxShadow: '0 6px 20px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.07)',
             borderRadius: '2px',
             alignSelf: 'end',
             display: 'flex',
@@ -252,32 +240,10 @@ export default function TeamSection() {
           transform: scale(1.02);
           filter: grayscale(0.4) contrast(1.05) brightness(0.95);
         }
-        /* Caption glass hover — strengthen edge */
-        .founder-caption-glass {
-          transition: border-color 280ms cubic-bezier(0.16,1,0.3,1),
-                      box-shadow 280ms cubic-bezier(0.16,1,0.3,1);
-        }
-        .founder-profile:hover .founder-caption-glass {
-          border-color: rgba(255,255,255,0.16) !important;
-          box-shadow: 0 12px 32px rgba(0,0,0,0.28),
-                      inset 0 1px 0 rgba(255,255,255,0.13),
-                      inset 0 -1px 0 rgba(255,255,255,0.04) !important;
-        }
-        /* Fallback */
-        @supports not (backdrop-filter: blur(1px)) {
-          .founder-caption-glass,
-          .studio-statement-glass {
-            background: rgba(14, 17, 32, 0.90) !important;
-          }
-        }
         @media (max-width: 768px) {
           .studio-section { padding: 6rem 1.5rem !important; }
           .studio-intro { grid-template-columns: 1fr !important; gap: 2rem 0 !important; }
           .founders-grid { grid-template-columns: 1fr !important; gap: 4rem !important; }
-          .founder-caption-glass {
-            backdrop-filter: blur(8px) saturate(115%) !important;
-            -webkit-backdrop-filter: blur(8px) saturate(115%) !important;
-          }
           .studio-statement-glass { display: none !important; }
         }
       `}</style>

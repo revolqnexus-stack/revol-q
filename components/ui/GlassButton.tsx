@@ -7,22 +7,6 @@ import { twMerge } from "tailwind-merge";
 // utility
 const cn = (...inputs: Parameters<typeof clsx>) => twMerge(clsx(inputs));
 
-const useDarkMode = (): boolean => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsDark(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  return isDark;
-};
 
 
 const GLASS_PRESETS = {
@@ -151,7 +135,7 @@ const Glass: React.FC<GlassProps> = (rawProps) => {
   const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
 
-  const isDarkMode = useDarkMode();
+  const isDarkMode = true; // always dark mode
 
   const v = useMemo(() => {
     const p = GLASS_PRESETS[variant] ?? GLASS_PRESETS.default;
@@ -330,21 +314,10 @@ const Glass: React.FC<GlassProps> = (rawProps) => {
     if (svgFilterSupported) {
       return {
         ...baseStyles,
-        background: isDarkMode
-          ? `hsl(0 0% 0% / ${v.backgroundOpacity})`
-          : `hsl(0 0% 100% / ${v.backgroundOpacity})`,
+        background: `hsl(0 0% 0% / ${v.backgroundOpacity})`,
         backdropFilter: `url(#${filterId}) saturate(${v.saturation})`,
-        boxShadow: isDarkMode
-          ? `0 0 2px 1px color-mix(in oklch, white, transparent 65%) inset,
+        boxShadow: `0 0 2px 1px color-mix(in oklch, white, transparent 65%) inset,
              0 0 10px 4px color-mix(in oklch, white, transparent 85%) inset,
-             0px 4px 16px rgba(17, 17, 26, 0.05),
-             0px 8px 24px rgba(17, 17, 26, 0.05),
-             0px 16px 56px rgba(17, 17, 26, 0.05),
-             0px 4px 16px rgba(17, 17, 26, 0.05) inset,
-             0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-             0px 16px 56px rgba(17, 17, 26, 0.05) inset`
-          : `0 0 2px 1px color-mix(in oklch, black, transparent 85%) inset,
-             0 0 10px 4px color-mix(in oklch, black, transparent 90%) inset,
              0px 4px 16px rgba(17, 17, 26, 0.05),
              0px 8px 24px rgba(17, 17, 26, 0.05),
              0px 16px 56px rgba(17, 17, 26, 0.05),
@@ -353,57 +326,31 @@ const Glass: React.FC<GlassProps> = (rawProps) => {
              0px 16px 56px rgba(17, 17, 26, 0.05) inset`,
       };
     } else {
-      if (isDarkMode) {
-        if (!backdropFilterSupported) {
-          return {
-            ...baseStyles,
-            background: "rgba(0, 0, 0, 0.4)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
-          };
-        } else {
-          return {
-            ...baseStyles,
-            background: "rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(12px) saturate(1.8) brightness(1.2)",
-            WebkitBackdropFilter: "blur(12px) saturate(1.8) brightness(1.2)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
-          };
-        }
+      if (!backdropFilterSupported) {
+        return {
+          ...baseStyles,
+          background: "rgba(0, 0, 0, 0.4)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                      inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
+        };
       } else {
-        if (!backdropFilterSupported) {
-          return {
-            ...baseStyles,
-            background: "rgba(255, 255, 255, 0.4)",
-            border: "1px solid rgba(255, 255, 255, 0.3)",
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.3)`,
-          };
-        } else {
-          return {
-            ...baseStyles,
-            background: "rgba(255, 255, 255, 0.25)",
-            backdropFilter: "blur(12px) saturate(1.8) brightness(1.1)",
-            WebkitBackdropFilter: "blur(12px) saturate(1.8) brightness(1.1)",
-            border: "1px solid rgba(255, 255, 255, 0.3)",
-            boxShadow: `0 8px 32px 0 rgba(31, 38, 135, 0.2),
-                        0 2px 16px 0 rgba(31, 38, 135, 0.1),
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.2)`,
-          };
-        }
+        return {
+          ...baseStyles,
+          background: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(12px) saturate(1.8) brightness(1.2)",
+          WebkitBackdropFilter: "blur(12px) saturate(1.8) brightness(1.2)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                      inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`,
+        };
       }
     }
   };
 
   const glassClasses =
     "relative flex items-center justify-center overflow-hidden transition-opacity duration-[260ms] ease-out";
-  const focusVisibleClasses = isDarkMode
-    ? "focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2"
-    : "focus-visible:outline-2 focus-visible:outline-[#007AFF] focus-visible:outline-offset-2";
+  const focusVisibleClasses = "focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2";
 
   return (
     <div

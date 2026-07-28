@@ -21,7 +21,7 @@ export default function Hero() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // Playback lifecycle
+  // Playback lifecycle — re-runs when isMobile changes (key remounts the video element)
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
@@ -64,12 +64,14 @@ export default function Hero() {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       observer.disconnect()
     }
-  }, [])
+  }, [isMobile])
 
   return (
     <main className="hero">
       {/* ── Full-bleed video ── */}
+      {/* key forces remount when source switches so the correct file loads */}
       <video
+        key={isMobile ? 'mobile' : 'desktop'}
         ref={videoRef}
         className={isMobile ? "mobile-hero-video" : "hero-video"}
         autoPlay
@@ -85,7 +87,7 @@ export default function Hero() {
         }}
       >
         <source 
-          src={isMobile ? '/hero%20video/hero%20video%20mobile.mp4' : '/hero%20video/hero%20video.mp4'} 
+          src="/hero video/hero video anime.mp4"
           type="video/mp4" 
         />
       </video>

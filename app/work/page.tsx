@@ -51,28 +51,28 @@ function StatusPill({ status }: { status: WorkProject['status'] }) {
   )
 }
 
-// ─── Desktop sticky preview ────────────────────────────────────────────────
+// ─── Exhibition Wall Preview ────────────────────────────────────────────────
 
-function StickyPreview({ project }: { project: WorkProject | null }) {
+function ExhibitionPreview({ project }: { project: WorkProject | null }) {
   const [displayed, setDisplayed] = useState<WorkProject | null>(project)
-  const [fading, setFading] = useState(false)
+  const [transitioning, setTransitioning] = useState(false)
 
   useEffect(() => {
-    if (!project) return
-    setFading(true)
+    if (!project || project?.slug === displayed?.slug) return
+    
+    setTransitioning(true)
     const t = setTimeout(() => {
       setDisplayed(project)
-      setFading(false)
-    }, 160)
+      setTransitioning(false)
+    }, 200)
     return () => clearTimeout(t)
   }, [project?.slug])
 
   if (!displayed) return (
     <div
       style={{
-        position: 'sticky',
-        top: '120px',
-        height: '420px',
+        width: '100%',
+        aspectRatio: '4/3',
         background: 'var(--ink3)',
         border: '1px solid var(--line)',
         display: 'flex',
@@ -81,7 +81,7 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
       }}
     >
       <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'var(--dim)', textTransform: 'uppercase' }}>
-        Hover a project
+        Exhibition Wall
       </span>
     </div>
   )
@@ -89,10 +89,8 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
   return (
     <div
       style={{
-        position: 'sticky',
-        top: '120px',
-        opacity: fading ? 0 : 1,
-        transition: 'opacity 160ms ease',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       {/* Cover image */}
@@ -107,6 +105,7 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
         }}
       >
         <img
+          key={displayed.slug}
           src={displayed.cover}
           alt={displayed.coverAlt}
           loading="lazy"
@@ -115,10 +114,10 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
             height: '100%',
             objectFit: 'cover',
             filter: 'grayscale(1) brightness(0.65)',
-            transition: 'transform 900ms cubic-bezier(0.2,1,0.3,1)',
-            transform: 'scale(1.02)',
+            opacity: transitioning ? 0 : 1,
+            transform: transitioning ? 'scale(1.03)' : 'scale(1)',
+            transition: 'opacity 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1)',
           }}
-          onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)' }}
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
         />
         <div
@@ -129,6 +128,8 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
             right: 0,
             padding: '1rem 1.2rem',
             background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)',
+            opacity: transitioning ? 0 : 1,
+            transition: 'opacity 400ms cubic-bezier(0.16, 1, 0.3, 1) 60ms',
           }}
         >
           <StatusPill status={displayed.status} />
@@ -145,6 +146,9 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
             color: 'var(--cobalt2)',
             textTransform: 'uppercase',
             marginBottom: '0.5rem',
+            opacity: transitioning ? 0 : 1,
+            transform: transitioning ? 'translateY(4px)' : 'translateY(0)',
+            transition: 'opacity 350ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 120ms',
           }}
         >
           {displayed.categoryLabel}
@@ -157,6 +161,9 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
             color: 'var(--white)',
             lineHeight: 1.1,
             marginBottom: '0.75rem',
+            opacity: transitioning ? 0 : 1,
+            transform: transitioning ? 'translateY(4px)' : 'translateY(0)',
+            transition: 'opacity 350ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 180ms',
           }}
         >
           {displayed.name}
@@ -167,13 +174,26 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
             fontSize: '0.82rem',
             lineHeight: 1.7,
             color: 'var(--fog)',
+            opacity: transitioning ? 0 : 1,
+            transform: transitioning ? 'translateY(4px)' : 'translateY(0)',
+            transition: 'opacity 350ms cubic-bezier(0.16, 1, 0.3, 1) 240ms, transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 240ms',
           }}
         >
           {displayed.shortDescription}
         </p>
 
         {displayed.industries.length > 0 && (
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+          <div 
+            style={{ 
+              display: 'flex', 
+              gap: '0.5rem', 
+              flexWrap: 'wrap', 
+              marginTop: '1rem',
+              opacity: transitioning ? 0 : 1,
+              transform: transitioning ? 'translateY(4px)' : 'translateY(0)',
+              transition: 'opacity 350ms cubic-bezier(0.16, 1, 0.3, 1) 300ms, transform 350ms cubic-bezier(0.16, 1, 0.3, 1) 300ms',
+            }}
+          >
             {displayed.industries.map((ind) => (
               <span
                 key={ind}
@@ -197,16 +217,17 @@ function StickyPreview({ project }: { project: WorkProject | null }) {
   )
 }
 
+
+
 // ─── Desktop project row ───────────────────────────────────────────────────
 
 function ProjectRow({
   project,
   isActive,
-  onHover,
 }: {
   project: WorkProject
   isActive: boolean
-  onHover: (slug: string | null) => void
+  onHover?: (slug: string | null) => void
 }) {
   const router = useRouter()
 
@@ -221,13 +242,10 @@ function ProjectRow({
   return (
     <div
       className="proj-row"
+      data-slug={project.slug}
       role="button"
       tabIndex={0}
       aria-label={`${project.name} — ${project.categoryLabel}`}
-      onMouseEnter={() => onHover(project.slug)}
-      onMouseLeave={() => onHover(null)}
-      onFocus={() => onHover(project.slug)}
-      onBlur={() => onHover(null)}
       onClick={handleClick}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick() }}
       style={{
@@ -503,7 +521,7 @@ function WorkPageInner() {
   const initialCat = (searchParams?.get('category') ?? 'all') as WorkCategory | 'all'
 
   const [activeFilter, setActiveFilter] = useState<WorkCategory | 'all'>(initialCat)
-  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null)
+  const [activeProject, setActiveProject] = useState<WorkProject | null>(null)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -520,7 +538,40 @@ function WorkPageInner() {
     ? [...filtered.filter((p) => p.category !== 'lab'), ...filtered.filter((p) => p.category === 'lab')]
     : filtered
 
-  const hoveredProject = sorted.find((p) => p.slug === hoveredSlug) ?? sorted[0] ?? null
+  // Set initial active project
+  useEffect(() => {
+    if (sorted.length > 0 && !activeProject) {
+      setActiveProject(sorted[0])
+    }
+  }, [sorted.length])
+
+  // Intersection Observer for exhibition wall
+  useEffect(() => {
+    if (isMobile) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+            const slug = entry.target.getAttribute('data-slug')
+            const project = sorted.find((p) => p.slug === slug)
+            if (project && project.slug !== activeProject?.slug) {
+              setActiveProject(project)
+            }
+          }
+        })
+      },
+      {
+        threshold: [0, 0.4, 0.5, 0.6, 1],
+        rootMargin: '-40% 0px -40% 0px',
+      }
+    )
+
+    const rows = document.querySelectorAll('.proj-row')
+    rows.forEach((row) => observer.observe(row))
+
+    return () => observer.disconnect()
+  }, [sorted, isMobile, activeProject?.slug])
 
   const handleFilter = (val: WorkCategory | 'all') => {
     setActiveFilter(val)
@@ -530,63 +581,88 @@ function WorkPageInner() {
 
   return (
     <main style={{
-      paddingTop: '8rem',
+      paddingTop: 'var(--header-height)',
       minHeight: '100vh',
       position: 'relative',
       zIndex: 10,
       background: 'linear-gradient(145deg,#000000 0%,#000000 48%,#000019 76%,#00002E 100%)',
     }}>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <div style={{ padding: '4rem 4rem 6rem' }} className="work-hero">
-        <span className="label-tag">WORK / SYSTEMS ARCHIVE</span>
-        <h1
+      <div style={{ padding: '4rem 4rem 6rem', position: 'relative', overflow: 'hidden' }} className="work-hero">
+        {/* Background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
           style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.8rem, 7vw, 8rem)',
-            fontWeight: 300,
-            lineHeight: 0.9,
-            marginTop: '1.2rem',
-            color: 'var(--white)',
-            letterSpacing: '-0.02em',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 0,
+            opacity: 0.4,
           }}
         >
-          WEBSITES, PRODUCTS
-          <br />
-          <em
+          <source src="/hero video/work,service,about.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <span className="label-tag">WORK / SYSTEMS ARCHIVE</span>
+          <h1
             style={{
-              fontStyle: 'italic',
-              color: 'transparent',
-              WebkitTextStroke: '1.5px var(--white)',
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2.8rem, 7vw, 8rem)',
+              fontWeight: 300,
+              lineHeight: 0.9,
+              marginTop: '1.2rem',
+              color: 'var(--white)',
+              letterSpacing: '-0.02em',
             }}
           >
-            AND OPERATING SYSTEMS.
-          </em>
-        </h1>
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.95rem',
-            color: 'rgba(255,255,255,0.72)',
-            lineHeight: 1.8,
-            maxWidth: '520px',
-            marginTop: '2rem',
-          }}
-        >
-          From public-facing brand experiences to private software running the
-          business behind them.
-        </p>
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.58rem',
-            letterSpacing: '0.3em',
-            color: 'var(--dim)',
-            textTransform: 'uppercase',
-            marginTop: '1.5rem',
-          }}
-        >
-          PUBLIC EXPERIENCES&nbsp;&nbsp;/&nbsp;&nbsp;DIGITAL PRODUCTS&nbsp;&nbsp;/&nbsp;&nbsp;PRIVATE OPERATIONS
-        </p>
+            WEBSITES, PRODUCTS
+            <br />
+            <em
+              style={{
+                fontStyle: 'italic',
+                color: 'transparent',
+                WebkitTextStroke: '1.5px var(--white)',
+              }}
+            >
+              AND OPERATING SYSTEMS.
+            </em>
+          </h1>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.72)',
+              lineHeight: 1.8,
+              maxWidth: '520px',
+              marginTop: '2rem',
+            }}
+          >
+            From public-facing brand experiences to private software running the
+            business behind them.
+          </p>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.58rem',
+              letterSpacing: '0.3em',
+              color: 'var(--dim)',
+              textTransform: 'uppercase',
+              marginTop: '1.5rem',
+            }}
+          >
+            PUBLIC EXPERIENCES&nbsp;&nbsp;/&nbsp;&nbsp;DIGITAL PRODUCTS&nbsp;&nbsp;/&nbsp;&nbsp;PRIVATE OPERATIONS
+          </p>
+        </div>
       </div>
 
       {/* ── FILTERS ──────────────────────────────────────────────────────── */}
@@ -633,27 +709,34 @@ function WorkPageInner() {
         </div>
       </div>
 
-      {/* ── DESKTOP: EDITORIAL INDEX + STICKY PREVIEW ────────────────────── */}
+      {/* ── DESKTOP: EDITORIAL INDEX + EXHIBITION WALL ────────────────────── */}
       {!isMobile && (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 0.52fr',
-            gap: '5rem',
-            padding: '0 4rem 8rem',
-            alignItems: 'start',
-            marginTop: '4rem',
-          }}
-          className="work-desktop"
-        >
-          {/* LEFT — Project index */}
-          <div>
+        <>
+          {/* Fixed exhibition wall — never moves */}
+          <div style={{
+            position: 'fixed',
+            top: '120px',
+            right: '4rem',
+            width: '340px',
+            zIndex: 5,
+            pointerEvents: 'none',
+          }}>
+            <ExhibitionPreview project={activeProject} />
+          </div>
+
+          {/* Left list — normal page scroll, padded right to leave room for fixed panel */}
+          <div
+            style={{
+              padding: '0 calc(360px + 6rem) 8rem 4rem',
+              marginTop: '4rem',
+            }}
+            className="work-desktop"
+          >
             {sorted.map((p) => (
               <ProjectRow
                 key={p.slug}
                 project={p}
-                isActive={hoveredSlug === p.slug}
-                onHover={setHoveredSlug}
+                isActive={activeProject?.slug === p.slug}
               />
             ))}
             {sorted.length === 0 && (
@@ -663,12 +746,7 @@ function WorkPageInner() {
             )}
             <div style={{ borderTop: '1px solid var(--line)' }} />
           </div>
-
-          {/* RIGHT — Sticky preview */}
-          <div>
-            <StickyPreview project={hoveredProject} />
-          </div>
-        </div>
+        </>
       )}
 
       {/* ── MOBILE: Stacked entries ───────────────────────────────────────── */}
