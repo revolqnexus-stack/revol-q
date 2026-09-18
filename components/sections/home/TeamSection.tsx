@@ -5,15 +5,15 @@ import { useMobileReveal } from '@/hooks/useMobileReveal'
 
 const founders = [
   {
-    name: 'Eathen Baby',
-    role: 'FOUNDER',
-    img: '/team/eathen.jpeg',
-    position: 'center top',
-  },
-  {
     name: 'Ajmal Mullapati',
     role: 'FOUNDER',
     img: '/team/ajmal.jpeg',
+    position: 'center top',
+  },
+  {
+    name: 'Eathen Baby',
+    role: 'FOUNDER',
+    img: '/team/eathen.jpeg',
     position: 'center top',
   },
 ]
